@@ -30,6 +30,7 @@ jobs:
           name: release-package
           path: .output/*.zip
           if-no-files-found: error
+          include-hidden-files: true
   publish:
     needs: package
     runs-on: ubuntu-latest
