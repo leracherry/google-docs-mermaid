@@ -21,7 +21,8 @@ button:focus-visible, select:focus-visible { outline: 2px solid var(--md-sys-col
 select { border: 0; border-radius: var(--gdm-radius-small); min-height: 32px; padding: 4px 8px;
   background: transparent; max-width: 100%; }
 select:hover { background: var(--md-sys-color-surface-container); }
-header select:first-of-type { color: var(--md-sys-color-on-primary-container); background: var(--md-sys-color-primary-container); border-color: transparent; }
+.block-mode { color: var(--md-sys-color-on-primary-container); }
+.block-mode select { color: inherit; background: var(--md-sys-color-primary-container); border-color: transparent; }
 .icon { width: 18px; height: 18px; flex: none; stroke-width: var(--gdm-icon-line-width); }
 .icon-button { width: 36px; padding: 0; }
 .canvas { overflow: auto; padding: 16px; max-height: 50vh; min-height: 80px; }

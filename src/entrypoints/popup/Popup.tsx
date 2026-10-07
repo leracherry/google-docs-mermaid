@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { browser } from 'wxt/browser';
 import { defaults, readPreferences, documentKey, type Preferences } from '../../state/preferences';
+import { Select } from '../../components/Select';
 import { designTokenCss } from '../../styles/design-tokens';
 
 function SettingSwitch({ label, description, checked, disabled, onChange }: {
@@ -65,7 +66,7 @@ export function Popup() {
       <SettingSwitch label="Diagram rendering" description="Show Mermaid previews in your documents" checked={prefs.enabled} disabled={disabled} onChange={value => void update({ ...prefs, enabled: value })} />
       <SettingSwitch label="Auto-detect Mermaid" description="Recognize diagrams in unlabeled code blocks" checked={prefs.autoDetect} disabled={disabled} onChange={value => void update({ ...prefs, autoDetect: value })} />
       <label className="setting-row"><span className="setting-copy"><span className="setting-title">Theme</span><span className="setting-description">Auto follows your device appearance</span></span>
-        <select aria-label="Theme" value={prefs.theme} disabled={disabled} onChange={e => void update({ ...prefs, theme: e.target.value as Preferences['theme'] })}><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select>
+        <Select aria-label="Theme" value={prefs.theme} disabled={disabled} onChange={e => void update({ ...prefs, theme: e.target.value as Preferences['theme'] })}><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></Select>
       </label>
     </section>
     {key && <section className="settings-section" aria-label="Current document"><h2>This document</h2>

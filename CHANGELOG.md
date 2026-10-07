@@ -2,7 +2,10 @@
 
 Changes are listed by release, with unreleased work first.
 
-## Unreleased
+## 0.1.0 — 2026-10-06
+
+- Publish the first regular GitHub release for DOM-backed code blocks.
+- Give all dropdown chevrons consistent spacing and refresh the README and 2× screenshots.
 
 - Fix duplicate SVG IDs across cached previews, stalled rendering status, zoom limits, and modifier-wheel cancellation.
 - Track dynamic code-block attributes, rendered line breaks, and individual block resizes; stop previews until settings load successfully.

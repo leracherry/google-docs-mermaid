@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { browser } from 'wxt/browser';
 import { Icon } from './Icon';
+import { Select } from './Select';
 import type { CodeBlock } from '../docs/adapter';
 import { detectCandidate } from '../mermaid/detector';
 import { renderMermaid } from '../mermaid/renderer';
@@ -69,15 +70,15 @@ export function DiagramBlock({ block, preferences, dark }: { block: CodeBlock; p
     style={expanded ? undefined : { top: view === 'code' || !allowed ? Math.max(0, top - 68) : top, left, width }}>
     <header>
       <img className="block-logo" src={browser.runtime.getURL('/icons/32.png')} alt="" />
-      <select aria-label="Block mode" value={mode} onChange={e => {
+      <Select className="block-mode" aria-label="Block mode" value={mode} onChange={e => {
         const next = e.target.value;
         setMode(next); setView(next === 'code' || next === 'disabled' ? 'code' : 'preview');
       }}>
         <option value="auto">Mermaid · Auto</option><option value="mermaid">Mermaid</option><option value="code">Code</option><option value="disabled">Never render</option>
-      </select>
-      <select className="view-select" aria-label="View" value={view} onChange={e => setView(e.target.value)}>
+      </Select>
+      <Select className="view-select" aria-label="View" value={view} onChange={e => setView(e.target.value)}>
         <option value="preview">Preview</option><option value="split">Split</option><option value="code">Code</option>
-      </select>
+      </Select>
       {busy && <span className="render-status" role="status">Rendering…</span>}
       {expanded && <button className="icon-button" aria-label="Close expanded viewer" title="Close" onClick={() => setExpanded(false)}><Icon name="close" /></button>}
     </header>

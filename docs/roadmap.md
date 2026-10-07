@@ -2,7 +2,7 @@
 
 [Documentation](README.md) · [Project overview](../README.md)
 
-The 0.1.0 alpha is a foundation release. It does not complete the original v1 MVP. **M0 remains the next priority.**
+Version 0.1.0 delivers the local renderer and controls for DOM-backed code blocks. Native canvas integration remains the next milestone toward the original v1 MVP.
 
 ## Milestones
 

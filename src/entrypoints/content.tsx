@@ -7,6 +7,7 @@ import type { CodeBlock } from '../docs/adapter';
 import { DiagramBlock } from '../components/DiagramBlock';
 import { defaults, documentKey, readPreferences, type Preferences } from '../state/preferences';
 import styles from '../styles/extension.css?inline';
+import selectStyles from '../styles/select.css?inline';
 import { designTokenCss } from '../styles/design-tokens';
 
 export function Overlay() {
@@ -45,7 +46,7 @@ export default defineContentScript({
     const host = document.createElement('google-docs-mermaid');
     host.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:2147483000';
     const shadow = host.attachShadow({ mode: 'open' });
-    const style = document.createElement('style'); style.textContent = designTokenCss + styles; shadow.append(style);
+    const style = document.createElement('style'); style.textContent = designTokenCss + styles + selectStyles; shadow.append(style);
     const container = document.createElement('div'); shadow.append(container);
     document.body.append(host);
     const root = createRoot(container); root.render(<Overlay />);

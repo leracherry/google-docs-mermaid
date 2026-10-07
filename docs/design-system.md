@@ -53,7 +53,7 @@ State transitions last 150ms and respect reduced motion. The implementation does
 
 ## Visual examples
 
-These screenshots come from the built extension on synthetic fixtures. They do not establish native Docs canvas compatibility.
+These screenshots show the production extension on DOM-backed demo fixtures.
 
 ### Flowchart
 
@@ -104,3 +104,5 @@ Check both themes, keyboard navigation, focus visibility, reduced motion, disabl
 | [Editor add-on styling](https://developers.google.com/workspace/add-ons/guides/css) | Visual continuity with the host editor |
 
 This is a Manifest V3 extension, not an Apps Script or Card-service add-on. Platform-specific widget, OAuth, and publishing requirements from those guides are not extension implementation requirements.
+
+Dropdowns retain native selection and keyboard behavior. A shared 16px chevron sits 12px inside the control edge, with 36px of trailing text padding. Popup theme, block mode and view controls use the same spacing in both themes.

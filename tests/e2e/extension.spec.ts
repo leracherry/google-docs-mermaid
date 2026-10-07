@@ -1,7 +1,17 @@
-import { test, expect, chromium } from '@playwright/test';
+import { test, expect, chromium, type Locator } from '@playwright/test';
 import path from 'node:path';
 import os from 'node:os';
 import { mkdtemp, rm } from 'node:fs/promises';
+async function expectSelectSpacing(control: Locator) {
+  const select = control.locator('select');
+  const arrow = control.locator('.select-chevron');
+  const box = (await select.boundingBox())!;
+  const chevron = (await arrow.boundingBox())!;
+  expect(box.x + box.width - chevron.x - chevron.width).toBeCloseTo(12, 0);
+  expect(await select.evaluate(el => getComputedStyle(el).paddingRight)).toBe('36px');
+  expect(await arrow.evaluate(el => getComputedStyle(el).pointerEvents)).toBe('none');
+}
+
 test('built extension renders, preserves valid preview, follows edits and removes blocks', async () => {
   const profile = await mkdtemp(path.join(os.tmpdir(), 'gdm-e2e-'));
   const extension = path.resolve('.output/chrome-mv3');
@@ -19,6 +29,8 @@ test('built extension renders, preserves valid preview, follows edits and remove
     const logo = page.locator('google-docs-mermaid').locator('.block-logo');
     await expect(logo).toBeVisible();
     expect(await logo.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBe(32);
+    await expectSelectSpacing(page.locator('.block-mode'));
+    await expectSelectSpacing(page.locator('.view-select'));
     if (process.env.UPDATE_SCREENSHOTS) await page.locator('.diagram').screenshot({ path: 'docs/assets/diagram-light.png' });
     const valid = await preview.innerHTML();
     await page.locator('pre[data-code-block]').evaluate(el => { el.textContent = 'graph LR\nA -->'; });
@@ -46,6 +58,7 @@ test('built extension renders, preserves valid preview, follows edits and remove
     const popup = await context.newPage();
     await popup.goto(`${origin}/popup.html`);
     await expect(popup.getByRole('switch', { name: 'Diagram rendering' })).toBeEnabled();
+    await expectSelectSpacing(popup.locator('.select-control'));
     const popupLogo = popup.locator('.brand-logo');
     expect(await popupLogo.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBe(128);
     await popup.getByLabel('Theme', { exact: true }).selectOption('light');

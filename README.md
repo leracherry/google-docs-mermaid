@@ -7,7 +7,7 @@
 <p align="center">Local Mermaid previews. Your source stays in the document.</p>
 
 <p align="center">
-  <a href="docs/roadmap.md"><img src="docs/assets/badges/status.svg" alt="Alpha" /></a>
+  <a href="https://github.com/leracherry/google-docs-mermaid/releases/tag/v0.1.0"><img src="docs/assets/badges/status.svg" alt="Release 0.1.0" /></a>
   <a href="docs/getting-started.md"><img src="docs/assets/badges/chrome.svg" alt="Chrome MV3" /></a>
   <a href="https://github.com/leracherry/google-docs-mermaid/actions/workflows/ci.yml"><img src="docs/assets/badges/ci.svg" alt="GitHub Actions" /></a>
   <a href="LICENSE"><img src="docs/assets/badges/license.svg" alt="MIT license" /></a>
@@ -20,7 +20,7 @@
   <a href="CONTRIBUTING.md">Contribute</a>
 </p>
 
-> **Developer alpha:** native Google Docs canvas integration is still pending. The screenshots and tests use DOM-backed fixtures.
+**Supported surface:** DOM-backed code blocks on Docs document pages. Native canvas code blocks are outside this release’s scope. Screenshots show the extension’s demo fixtures.
 
 <p align="center">
   <img src="docs/assets/diagram-shapes.png" width="650" alt="Mermaid flowchart with inline preview, zoom, expand, and copy controls" />
@@ -63,7 +63,7 @@ pnpm exec playwright install chromium
 pnpm test:e2e
 ```
 
-See [Development](docs/development.md) for fixture testing, screenshots, and packaging. The latest release predates the styling on `main`; repository access is required while the project is private.
+See [Development](docs/development.md) for fixture testing, screenshots, and packaging. Download [v0.1.0](https://github.com/leracherry/google-docs-mermaid/releases/tag/v0.1.0) for the current release. Repository access is required while the project is private.
 
 ## Contribute
 

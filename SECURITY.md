@@ -1,6 +1,6 @@
 # Security policy
 
-The current alpha on main is the only actively maintained code line. Stable versions and a formal support window have not been established.
+The current 0.1.x release line is actively maintained. Security fixes are developed on main and shipped in the next patch release.
 
 ## Report a vulnerability
 

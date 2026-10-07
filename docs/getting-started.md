@@ -2,7 +2,7 @@
 
 [Documentation](README.md) · [Project overview](../README.md)
 
-> This is a developer alpha. Native Google Docs canvas extraction and native Markdown-file integration are pending. Installing it may show no previews in a standard Docs document.
+**Supported surface:** DOM-backed code blocks on Docs document pages. Native canvas blocks and native Markdown-file integration are outside the scope of v0.1.0.
 
 ## Install
 
@@ -12,7 +12,7 @@
 4. Select **Load unpacked** and choose the folder containing `manifest.json`.
 5. Pin **Mermaid for Google Docs** in Chrome's extension menu.
 
-The latest published release, `0.1.0-alpha.2`, predates the current branding and design system. Use a main CI artifact or a [local build](development.md#local-setup) to try the current UI. There is no Chrome Web Store listing.
+Download [v0.1.0](https://github.com/leracherry/google-docs-mermaid/releases/tag/v0.1.0) for the current UI and renderer. Releases are installed through Chrome’s **Load unpacked** option; Chrome Web Store distribution is a separate roadmap item.
 
 ## Views and block modes
 
@@ -48,7 +48,7 @@ On a supported active Docs tab, the popup also offers **Enable for this document
 
 | Symptom | What to check |
 | --- | --- |
-| No preview in native Docs | Canvas source extraction is not implemented yet |
+| No preview in native Docs | This release supports DOM-backed code blocks; native canvas blocks are outside its scope |
 | No preview on a supported DOM-backed block | Enable rendering, use valid Mermaid or an explicit fence, and keep the block visible |
 | Syntax error or an old diagram | Fix the source; the previous valid render is retained while syntax is invalid |
 | Copy fails | Retry from the copy button and check browser clipboard policy |

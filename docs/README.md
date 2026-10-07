@@ -2,7 +2,7 @@
 
 [Project overview](../README.md)
 
-Mermaid for Google Docs is a developer alpha. The renderer and controls are exercised against DOM-backed fixtures; native Google Docs canvas integration is still the first feasibility milestone.
+Mermaid for Google Docs provides local rendering, preview controls and document preferences for DOM-backed code blocks. Version 0.1.0 is the first regular release. Native canvas integration is tracked in the roadmap.
 
 ## Choose a guide
 

@@ -1,0 +1,4 @@
+.select-control { position: relative; display: inline-flex; max-width: 100%; flex-shrink: 0; vertical-align: middle; }
+.select-control select { appearance: none; -webkit-appearance: none; padding-inline: 12px 36px; width: 100%; min-width: 0; }
+.select-chevron { position: absolute; inset-inline-end: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; pointer-events: none; }
+.select-control:has(select:disabled) .select-chevron { opacity: .38; }

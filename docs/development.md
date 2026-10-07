@@ -39,7 +39,7 @@ Coverage includes source edits, error recovery, view changes, focus containment,
 
 Unit tests separately cover render cancellation/debounce, queue/cache behavior, input limits and sanitization, settings validation/save failures, observer cleanup, and release tag validation. `test-results/results.json` records browser results and fixture timings. These timings measure synthetic lifecycle scenarios, not full rendering of 100 complex diagrams.
 
-These tests verify the extension pipeline. They do not establish compatibility with the native Docs canvas editor.
+The automated suite targets DOM-backed document surfaces. Native canvas integration has its own M0 acceptance criteria in the roadmap.
 
 ## Screenshots
 
@@ -60,7 +60,7 @@ To install an artifact from a successful run, download `chrome-extension`, extra
 
 ## Releases
 
-The latest published release is `v0.1.0-alpha.2`. Main includes newer branding and design changes; see the [changelog](../CHANGELOG.md).
+The current release is `v0.1.0`, including the shared design system, dropdown spacing, rendering fixes and expanded test suite. See the [release notes](releases/v0.1.0.md) and [changelog](../CHANGELOG.md).
 
 To publish a new release:
 
