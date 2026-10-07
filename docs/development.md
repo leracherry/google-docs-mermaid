@@ -1,21 +1,75 @@
-# Development and releases
+# Development
 
-Use Node 22 and pnpm 10.18.0. Install with `pnpm install --frozen-lockfile`. `pnpm dev` runs WXT, and `pnpm build` produces `.output/chrome-mv3`. Load that directory as an unpacked extension in Chrome.
+[Documentation](README.md) · [Project overview](../README.md)
 
-`pnpm check` checks TypeScript and candidate detection. `pnpm exec playwright install chromium` installs the test browser; `pnpm test:e2e` loads the production extension into an isolated Chromium profile and intercepts a Docs URL with a DOM fixture. This checks the renderer, syntax error recovery, view controls, and block cleanup without accessing a real document.
+## Prerequisites
 
-CI performs the same checks on main and pull requests and uploads the extension ZIP. Release tags must match the package version. The release job validates the version, rebuilds and tests, then publishes the ZIP as a GitHub release. Tags with a suffix, such as `v0.1.0-alpha.1`, are prereleases. The workflow needs only the built-in GitHub token, with write permission restricted to the publishing job.
+Use Node.js 22+ and pnpm 10.18.0. Access to this private repository is required to clone it and download CI artifacts.
 
-Vite 6 and the compatible React plugin are pinned through package configuration for Node 22 compatibility. WXT bundles Mermaid into the content script; the alpha bundle is approximately 5.5MB and needs performance work before v1. Mermaid initialization is deferred until a candidate is encountered, but its bytes are currently loaded with the content script.
+## Local setup
 
-## Design and screenshots
+```sh
+git clone git@github.com:leracherry/google-docs-mermaid.git
+cd google-docs-mermaid
+pnpm install --frozen-lockfile
+pnpm dev
+```
 
-Read [Design system](design-system.md) before UI changes. The shared token file drives both the popup and the overlay. Logo sources live in `docs/assets/logo.png`; Chrome variants live in `public/icons` and are declared in the manifest.
+For a production build, run `pnpm build`. Load `.output/chrome-mv3` through Chrome's **Load unpacked** option at `chrome://extensions`.
 
-After building, run `UPDATE_SCREENSHOTS=1 pnpm test:e2e` to refresh the README screenshots from the real extension. Review every image in light/dark mode before committing. The browser fixture is synthetic and must stay clearly labeled in documentation.
+## Commands
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm dev` | Start WXT development mode |
+| `pnpm check:docs` | Check local documentation links, anchors, and image references |
+| `pnpm check` | Check documentation, TypeScript, and unit tests |
+| `pnpm build` | Build the production Chrome extension |
+| `pnpm exec playwright install chromium` | Install the test browser |
+| `pnpm test:e2e` | Test the built extension in Chromium |
+| `pnpm zip` | Build and package the extension in `.output` |
+
+Build before running browser tests. Unit tests do not require a browser.
+
+## Browser fixtures
+
+The browser suite loads the actual built extension in a temporary Chromium profile. It intercepts a Google Docs URL and serves a synthetic page with DOM-backed code blocks. No Google account or real document is accessed.
+
+Coverage includes source edits, error recovery, view changes, focus containment, block deletion, preferences, light/dark settings, and visual treatment across flowchart, sequence, class, state, ER, pie, and Gantt diagrams.
+
+These tests verify the extension pipeline. They do not establish compatibility with the native Docs canvas editor.
+
+## Screenshots
+
+```sh
+pnpm build
+UPDATE_SCREENSHOTS=1 pnpm test:e2e
+```
+
+Screenshots are saved to `docs/assets`. Review them before committing; keep the README and [design-system examples](design-system.md#visual-examples) consistent with the implementation. Label fixture screenshots accurately.
+
+Shared visual tokens live in [design-tokens.ts](../src/styles/design-tokens.ts). The logo source is [logo.png](assets/logo.png), with Chrome variants in [public/icons](../public/icons).
+
+## CI artifacts
+
+The [CI workflow](../.github/workflows/ci.yml) runs on main and pull requests. It installs locked dependencies, checks docs/types/tests, builds the extension, runs browser scenarios, and uploads the extension ZIP as `chrome-extension`.
+
+To install an artifact from a successful run, download `chrome-extension`, extract it, and then extract the extension ZIP inside it. Load the resulting folder containing `manifest.json`.
 
 ## Releases
 
-Update the package version and lockfile, merge the checked change into main, and push a matching `v<version>` or prerelease tag. The workflow validates versions, tests, rebuilds, packages, uploads the ZIP, and publishes it with the built-in GitHub token. Prerelease suffixes produce GitHub prereleases.
+The latest published release is `v0.1.0-alpha.2`. Main includes newer branding and design changes; see the [changelog](../CHANGELOG.md).
 
-Artifact uploads must include hidden files because WXT writes ZIPs under `.output`. Keep publishing permissions restricted to the release publish job. Chrome Web Store deployment is not configured.
+To publish a new release:
+
+1. Update `package.json` and the lockfile when changing the package version.
+2. Complete checks and merge the change into main.
+3. Push a matching `v<version>` tag, with an optional prerelease suffix such as `v0.1.0-alpha.3`.
+
+The [release workflow](../.github/workflows/release.yml) validates the tag, checks, builds, tests, packages, and publishes the ZIP using GitHub's built-in token. A suffix creates a prerelease. Artifact uploads must include hidden files because WXT stores ZIPs in `.output`.
+
+Chrome Web Store publishing is not configured.
+
+## Build constraints
+
+Vite 6 and the compatible React plugin are pinned for the installed Node runtime. Mermaid initializes only when a candidate needs rendering, but WXT currently bundles its bytes into the approximately 5.5MB content script. Bundle performance remains a v1 milestone.

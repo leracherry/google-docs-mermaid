@@ -4,6 +4,8 @@ Changes are listed by release, with unreleased work first.
 
 ## Unreleased
 
+- Repair README portability, reorganize documentation, clarify release/main differences, and check local documentation references in CI.
+
 - Unify UI and diagram colors/geometry under one token source; flatten Mermaid nodes, soften rectangular corners, and normalize connectors and outlines.
 - Align diagram actors, notes, clusters, labels, and exported SVG with the same light/dark treatment.
 

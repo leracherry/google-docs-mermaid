@@ -1,19 +1,41 @@
 # Architecture
 
-The document adapter emits stable block IDs, source, language, and viewport bounds. It batches DOM mutation and scroll/resize events with animation frames. All host-page selectors live in the adapter.
+[Documentation](README.md) · [Project overview](../README.md)
 
-The React overlay runs in a Shadow Root. Each block debounces source changes by 300ms, skips rendering outside the nearby viewport, and discards stale asynchronous results. Source remains in the document. Preview does not replace or save an image into Docs.
+## Pipeline
 
-The renderer lazily imports Mermaid, serializes its global configuration/render calls, enforces strict security and sanitizes SVG with DOMPurify. A bounded source/theme cache stores at most 100 diagrams. Rendering errors retain the block's prior valid SVG.
+```text
+Document adapter
+  → stable blocks, source, language and viewport bounds
+  → Mermaid candidate detection
+  → debounced validation and serial rendering
+  → shared theme and SVG styling
+  → SVG sanitization and bounded cache
+  → isolated React preview
+```
 
-Global settings and document toggles live in extension local storage. Source text and rendered SVG exist only in memory. No network API, OAuth, backend, remote scripts, or analytics is used.
+## Document adapter
 
-## Feasibility gate
+[GoogleDocsAdapter](../src/docs/google-docs-adapter.ts) observes DOM-backed `pre`, `[data-code-block]`, and `[role="code"]` surfaces. It assigns stable IDs, reads source, tracks bounds, and batches mutation/scroll/resize work with animation frames. All host-page selectors stay behind the [adapter interface](../src/docs/adapter.ts).
 
-The initial adapter deliberately does not guess internal canvas selectors or claim to extract native code blocks. The next milestone requires testing with an authenticated live Docs document, identifying available accessibility/semantic source and block geometry, and validating edit/scroll/undo/reload behavior. If complete source cannot be reliably extracted without OAuth or modifying the document, product scope must be revisited before v1 release.
+Native Google Docs canvas source extraction is not implemented. M0 requires a real document to verify accessible source, code-block identity, screen geometry, edits, scrolling, and removal. Fixture coverage must not be described as evidence that M0 is complete.
 
-## UI and branding
+## Rendering
 
-The popup and isolated overlay share semantic CSS variables from `src/styles/design-tokens.ts`. The popup uses native checkbox-backed switches and selects; inline previews use compact native controls and labeled SVG icons. Expanded view contains focus and restores it on close. Both surfaces support light/dark preferences and reduced motion.
+The [detector](../src/mermaid/detector.ts) recognizes explicit Mermaid fences and candidate starters before loading the renderer. Each block waits 300ms after edits and skips new rendering outside the nearby viewport.
 
-Chrome uses the supplied logo at 16/32/48/128px. The inline header loads only the 32px icon through a narrowly scoped web-accessible resource for Docs URLs. This static packaged asset adds no document-data upload or remote dependency. See [Design system](design-system.md).
+The [renderer](../src/mermaid/renderer.ts) serializes Mermaid configuration/render calls, uses strict security and size limits, and sanitizes SVG with DOMPurify. A source/theme cache holds up to 100 diagrams. Block effects discard stale results and retain the previous valid SVG on errors.
+
+Mermaid initializes on demand, but its bytes are currently included in the content-script bundle.
+
+## Visual treatment
+
+[Shared tokens](../src/styles/design-tokens.ts) generate the popup/overlay CSS variables and [Mermaid theme values](../src/mermaid/themes.ts). Rectangular cards receive soft corners and thin neutral outlines; connectors retain meaningful dashes and arrowheads. Exported SVG includes the same styling as the inline preview.
+
+The React overlay lives in a Shadow Root. Expanded view contains keyboard focus and restores it on close. Both surfaces support light/dark themes and reduced motion. See the [design system](design-system.md).
+
+## State and privacy
+
+[Preferences](../src/state/preferences.ts) and document enable/disable choices live in extension local storage. Block mode/view choices are session-only. Source and SVG exist in memory and are not uploaded or persisted.
+
+The manifest requests `storage`. The static 32px logo is exposed only to Docs URLs so the inline header can display it. Other icons are packaged for Chrome's toolbar and extension list. There is no backend, OAuth, telemetry, or remote renderer. See [Privacy](privacy.md) and [Security](../SECURITY.md).

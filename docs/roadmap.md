@@ -1,23 +1,41 @@
 # v1 roadmap
 
-- [x] Private repository, main branch, description, topics.
-- [x] WXT/React/TypeScript extension and local rendering pipeline.
-- [x] DOM-backed adapter and lifecycle fixture.
-- [x] Initial inline UI, settings, CI, release packaging.
-- [ ] M0: prove reliable source extraction and bounds in live Google Docs canvas editor.
-- [ ] M2: validate undo/redo, duplicate, move, reopen, collaborator updates in real Docs.
-- [ ] M3: persist per-block modes, editing-aware layout, expanded drag-to-pan.
-- [ ] M4: verify native Google Docs Markdown files and fence language changes.
-- [ ] M5: benchmark 1/10/50/100 diagrams and large documents.
-- [ ] M6: extend security, theme, settings, stale-result and multi-diagram browser scenarios.
-- [ ] M8/M9: screenshots, icons, Web Store assets, privacy review, store release.
+[Documentation](README.md) · [Project overview](../README.md)
 
-The 0.1.0 alpha is a foundation release. It is not the completed v1 MVP described in the supplied plan.
+The 0.1.0 alpha is a foundation release. It does not complete the original v1 MVP. **M0 remains the next priority.**
 
-## Design and repository readiness
+## Milestones
 
-- [x] Supplied project logo and Chrome icon variants.
-- [x] Shared light/dark design tokens for popup and inline UI.
-- [x] Branded README, installation guide, design research, community and security guidance.
-- [ ] Select a source-code license and clarify artwork redistribution terms before public open-source launch.
-- [ ] Validate the visual treatment against live Docs after M0 succeeds.
+| Milestone | Current status | Remaining work |
+| --- | --- | --- |
+| M0 · Feasibility | Pending in live Docs | Identify native blocks, extract complete source, track geometry/edits, and remove overlays reliably |
+| M1 · Mermaid prototype | Fixture pipeline implemented | Verify automatic rendering against a native block after M0 |
+| M2 · Block lifecycle | Fixture edits/deletion covered | Validate paste, move, duplicate, undo/redo, reopen, and collaborator updates in live Docs |
+| M3 · Inline UX | Core controls and shared visuals implemented | Persist block choices, improve editing-aware layout, and add expanded drag-to-pan |
+| M4 · Markdown | Fence detection implemented | Validate files opened in Docs, fence-language changes, and editing/paste workflows |
+| M5 · Performance | Queue, cache, debounce, and viewport gating implemented | Benchmark 1/10/50/100 diagrams and reduce bundled renderer cost |
+| M6 · Reliability | Unit and browser fixtures implemented | Extend live-Docs, stale-result, security, and multi-diagram scenarios |
+| M7 · Settings | Popup and per-document toggle implemented | Validate settings in real Docs and refine editing preferences if needed |
+| M8 · Release preparation | Logo, docs, screenshots, CI, and GitHub prerelease available | Select licensing, clarify artwork terms, and prepare store assets |
+| M9 · Web Store launch | Pending | Prove compatibility, complete launch review, and configure store publishing |
+
+## M0 acceptance criteria
+
+A native Google Docs code block can be identified, read completely, tracked while scrolling and zooming, updated after edits, and undecorated when removed. Evidence must come from an authenticated live document; synthetic fixtures do not satisfy this gate.
+
+## Completed foundation
+
+- [x] Private repository with main branch, description, and topics.
+- [x] WXT, React, TypeScript, and local Mermaid rendering.
+- [x] DOM-backed adapter and lifecycle fixtures.
+- [x] Shared UI/diagram design tokens and supplied logo/icons.
+- [x] Popup settings and per-document rendering choice.
+- [x] CI, release packaging, and first GitHub prerelease.
+- [x] Installation, architecture, design, privacy, security, and contribution guides.
+
+## Before a public launch
+
+- [ ] Complete M0 and live-Docs lifecycle checks.
+- [ ] Select a source-code license and artwork redistribution terms.
+- [ ] Verify accessibility and visual integration in live Docs.
+- [ ] Prepare store assets and publishing credentials.

@@ -1,32 +1,58 @@
 # Getting started
 
-This is a developer alpha. The renderer works on DOM-backed code blocks; native Google Docs canvas extraction and Markdown-file integration are still pending. Installing it may show no previews in a standard Docs document.
+[Documentation](README.md) · [Project overview](../README.md)
+
+> This is a developer alpha. Native Google Docs canvas extraction and native Markdown-file integration are pending. Installing it may show no previews in a standard Docs document.
 
 ## Install
 
-Download a ZIP from [GitHub Releases](https://github.com/leracherry/google-docs-mermaid/releases), extract it, then visit `chrome://extensions`. Enable Developer mode, select Load unpacked, and choose the folder containing `manifest.json`. Pin Mermaid for Google Docs from Chrome's toolbar extension menu.
+1. Download an extension ZIP from [Releases](https://github.com/leracherry/google-docs-mermaid/releases) or a successful main [CI run](https://github.com/leracherry/google-docs-mermaid/actions/workflows/ci.yml?query=branch%3Amain).
+2. Extract the extension ZIP. A downloaded CI artifact is a wrapper ZIP containing the extension ZIP; extract both.
+3. Open `chrome://extensions` and enable **Developer mode**.
+4. Select **Load unpacked** and choose the folder containing `manifest.json`.
+5. Pin **Mermaid for Google Docs** in Chrome's extension menu.
 
-For a local build, follow [Development](development.md) and load `.output/chrome-mv3`. The latest release may lag behind changes on main.
+The latest published release, `0.1.0-alpha.2`, predates the current branding and design system. Use a main CI artifact or a [local build](development.md#local-setup) to try the current UI. There is no Chrome Web Store listing.
 
-## Controls
+## Views and block modes
 
-- **Mermaid · Auto:** recognize candidate syntax. Select Mermaid to force rendering, Code for ordinary code, or Never render to suppress this block for the session.
-- **Preview:** display the diagram. **Split:** display the diagram and a read-only source copy. **Code:** expose the original document for editing.
-- **Zoom:** use +/− or Ctrl/Cmd + wheel. Ordinary wheel gestures continue scrolling the document.
-- **Fit:** reset the diagram to container width. **Expand:** open a larger viewer; Escape closes it.
-- **Copy Mermaid / Copy SVG:** copy source or the current valid diagram to your clipboard. Clipboard access may be blocked by browser policy.
+| Control | Behavior |
+| --- | --- |
+| Mermaid · Auto | Detect candidate Mermaid syntax |
+| Mermaid | Force the block to be treated as Mermaid |
+| Code block mode | Treat it as ordinary code |
+| Never render | Disable this block for the session |
+| Preview view | Show the diagram |
+| Split view | Show the diagram and a read-only source copy |
+| Code view | Expose the original document source for editing |
 
-The popup controls rendering, automatic detection, and theme. On a supported active Docs tab it also offers a persistent enable/disable choice for that document. Auto theme follows the device appearance.
+Block modes are session-only. The extension never replaces canonical document text with an image.
+
+## Diagram actions
+
+- **Zoom in/out:** use +/− or Ctrl/Cmd + wheel. Ordinary wheel gestures continue document scrolling.
+- **Fit:** reset the diagram to container width.
+- **Expand:** open a larger viewer; Escape closes it and restores focus.
+- **Copy Mermaid:** copy the source text.
+- **Copy SVG:** copy the last valid diagram, including its styling.
+
+A syntax error leaves the last valid diagram visible until the source is corrected.
+
+## Settings
+
+The popup controls rendering, automatic detection, and theme. **Auto** theme follows the device appearance.
+
+On a supported active Docs tab, the popup also offers **Enable for this document**. That choice persists locally on the current device. The extension does not synchronize settings to other devices.
 
 ## Troubleshooting
 
-| Symptom | Next step |
+| Symptom | What to check |
 | --- | --- |
-| No preview in native Docs | Expected alpha limitation: canvas source extraction is not implemented |
-| No preview on a DOM-backed block | Check rendering is enabled, use a Mermaid fence, and verify the block is visible |
-| Syntax error | Correct the original source; the previous valid preview remains visible |
-| An old diagram is shown | It may be the retained valid preview while the new source is invalid |
-| Copy fails | Check browser clipboard permissions and retry from the button |
-| Logo or styles look old | Reload the unpacked extension and refresh the document tab |
+| No preview in native Docs | Canvas source extraction is not implemented yet |
+| No preview on a supported DOM-backed block | Enable rendering, use valid Mermaid or an explicit fence, and keep the block visible |
+| Syntax error or an old diagram | Fix the source; the previous valid render is retained while syntax is invalid |
+| Copy fails | Retry from the copy button and check browser clipboard policy |
+| Logo or styles look old | Reload the unpacked extension, then refresh the document tab; check whether you installed the older release |
+| Load unpacked cannot find the extension | Select the extracted folder that directly contains `manifest.json` |
 
-When filing a bug, include extension and Chrome versions, steps, and a small non-sensitive Mermaid example. Avoid sharing private document URLs or content. See [Contributing](../CONTRIBUTING.md).
+For a bug report, include Chrome/extension versions, reproduction steps, and a small non-sensitive Mermaid example. Remove private document URLs and content. See [Contributing](../CONTRIBUTING.md).

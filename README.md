@@ -1,61 +1,58 @@
-<p align="center">
-  <img src="docs/assets/logo.png" width="112" height="112" alt="Mermaid for Google Docs — a blue document with a white whale tail" />
-</p>
-<h1 align="center">Mermaid for Google Docs</h1>
-<p align="center">Diagrams, right where you write.</p>
-<p align="center">
-  <a href="https://github.com/leracherry/google-docs-mermaid/actions/workflows/ci.yml"><img src="https://github.com/leracherry/google-docs-mermaid/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI status" /></a>
-  <a href="https://github.com/leracherry/google-docs-mermaid/releases">Releases</a> ·
-  <a href="docs/development.md">Development</a> ·
-  <a href="docs/design-system.md">Design system</a> ·
-  <a href="CONTRIBUTING.md">Contributing</a>
-</p>
+![Mermaid for Google Docs logo](docs/assets/logo-small.png)
 
-A Chrome extension that recognizes Mermaid source, renders diagrams locally, and adds compact preview controls inside Google Docs. Your source stays in the document; diagrams are rendered on your device.
+# Mermaid for Google Docs
 
-> **Early alpha · v1 in development.** The rendering pipeline works on DOM-backed code blocks. Reliable extraction from the native Google Docs canvas editor and native Markdown files is still unverified. This is a developer preview, not a finished Google Docs integration. Follow the [v1 roadmap](docs/roadmap.md).
+**Diagrams, right where you write.**
 
-## A familiar place for diagrams
+A Chrome extension for local Mermaid previews in Google Docs. It keeps the source in your document and adds compact preview, zoom, and copy controls.
 
-- **Live previews.** Changes render after a short pause; syntax errors preserve the last valid diagram.
-- **Source-first controls.** Switch between Preview, Split, and Code without replacing the original text.
-- **Room to explore.** Zoom, fit, expand, and copy Mermaid source or SVG.
-- **Workspace-inspired visuals.** Shared colors, rounded cards, thin outlines, and restrained connectors across the controls and diagrams, with light/dark themes and keyboard focus states.
-- **Local by default.** No backend, account, OAuth, telemetry, or remote rendering.
-- **Your preferences.** Choose a theme, toggle detection, and disable previews for a document.
+[Documentation](docs/README.md) · [Development](docs/development.md) · [Roadmap](docs/roadmap.md) · [Releases](https://github.com/leracherry/google-docs-mermaid/releases) · [CI](https://github.com/leracherry/google-docs-mermaid/actions/workflows/ci.yml)
+
+> **Developer alpha.** The rendering pipeline is tested on DOM-backed code blocks. Native Google Docs canvas extraction and native Markdown-file integration are still pending, so a normal Docs document may show no previews.
 
 ## Preview
 
-<p align="center"><img src="docs/assets/diagram-light.png" width="720" alt="Alpha fixture showing a Mermaid diagram with preview, zoom, expand, and copy controls" /></p>
-<p align="center"><img src="docs/assets/popup-light.png" width="360" alt="Extension settings with the whale-tail logo, rendering switches, and theme preference" /> <img src="docs/assets/popup-dark.png" width="360" alt="The same extension settings in dark mode" /></p>
+![The extension displaying a Mermaid diagram with preview, zoom, expand, and copy controls](docs/assets/diagram-light.png)
 
-These screenshots show the actual extension on a test fixture. They do not demonstrate native Google Docs canvas support.
+This screenshot comes from the built extension on a synthetic fixture. See [light/dark settings and diagram examples](docs/design-system.md#visual-examples).
 
-## Try the alpha
+## Features on main
 
-1. Download the extension ZIP from [Releases](https://github.com/leracherry/google-docs-mermaid/releases) and extract it.
-2. Open `chrome://extensions` and enable **Developer mode**.
-3. Select **Load unpacked**, then choose the extracted folder containing `manifest.json`.
-4. Open the toolbar menu and pin **Mermaid for Google Docs** to access settings.
+- **Live previews:** debounce edits and retain the last valid diagram when syntax is incomplete.
+- **Source-first views:** Preview, Split, and Code; edit the original source in the document.
+- **Diagram controls:** zoom, fit, expanded viewing, and Mermaid/SVG copy.
+- **Consistent visuals:** shared Workspace-inspired colors, corners, borders, and line weights across the UI and diagrams.
+- **Local rendering:** no backend, account, OAuth, telemetry, or remote rendering service.
+- **Preferences:** light/dark/auto theme, detection settings, and persistent per-document enable/disable.
 
-There is no Chrome Web Store listing yet. A standard Google Docs document may show no previews until the canvas adapter is implemented. For a reproducible rendering check, use the browser fixture described in [Development](docs/development.md).
+The latest published release is **0.1.0-alpha.2**. Branding and the current design system are newer changes on `main`; build from source or download the artifact from a successful [main CI run](https://github.com/leracherry/google-docs-mermaid/actions/workflows/ci.yml?query=branch%3Amain) to try those changes.
 
-## Mermaid source
+## Install
 
-The intended workflow is to write Mermaid in a code block:
+1. Download an extension ZIP from [Releases](https://github.com/leracherry/google-docs-mermaid/releases) or a successful main CI run.
+2. Extract it. If you downloaded a CI artifact, extract its contained extension ZIP too.
+3. Open `chrome://extensions` and enable **Developer mode**.
+4. Choose **Load unpacked** and select the folder containing `manifest.json`.
+5. Pin **Mermaid for Google Docs** from Chrome's extension menu.
 
-```mermaid
+There is no Chrome Web Store listing yet. Read [Getting started](docs/getting-started.md) for controls and troubleshooting.
+
+## Source example
+
+Write this text inside a code block:
+
+```text
 flowchart LR
     Source[Write Mermaid] --> Preview[See your diagram]
     Preview --> Edit[Keep editing]
     Edit --> Source
 ```
 
-Explicit `mermaid` fences are detected even while their syntax is incomplete. Unlabeled blocks use a cheap candidate check followed by Mermaid validation. Blocks marked with another language are left alone.
+Explicit `mermaid` fences are recognized even while syntax is incomplete. Unlabeled blocks use candidate detection and Mermaid validation. Blocks labeled with another language are left alone.
 
-## Build and test
+## Build and verify
 
-Requires Node.js 22+ and pnpm 10.18.0.
+Requires Node.js 22+ and pnpm 10.18.0. Repository access is required while this project is private.
 
 ```sh
 git clone git@github.com:leracherry/google-docs-mermaid.git
@@ -67,40 +64,29 @@ pnpm exec playwright install chromium
 pnpm test:e2e
 ```
 
-Load `.output/chrome-mv3` in Chrome to use the local build. `pnpm dev` starts development mode; `pnpm zip` packages the extension. Repository access is required while the project is private.
+Load `.output/chrome-mv3` in Chrome. Use `pnpm dev` for development and `pnpm zip` for packaging. The [development guide](docs/development.md) explains the fixture, screenshot generation, CI artifacts, and releases.
 
-CI checks TypeScript, unit tests, the production build, and Chromium scenarios against the built extension. Version tags run the same checks before publishing a release ZIP. See the [release process](docs/development.md#releases).
+## Current limitations
 
-## Current limits
-
-| Area | Alpha behavior |
+| Area | Alpha status |
 | --- | --- |
-| Google Docs integration | DOM-backed `pre`, `[data-code-block]`, and `[role="code"]` surfaces; live canvas extraction pending |
-| Markdown files | Fence detection implemented; native Docs Markdown workflow unverified |
-| Block preferences | Session-only; document enable/disable persists locally |
-| Split view | Read-only source copy; edit the original document in Code view |
-| Auto theme | Follows the device; separate Docs appearance is not detected |
-| Expanded viewer | Scroll and zoom supported; drag-to-pan pending |
-| Performance | Mermaid initialization deferred; renderer is bundled into the content script |
+| Native Google Docs | Canvas source extraction and block geometry are not implemented |
+| Supported adapter surfaces | DOM-backed `pre`, `[data-code-block]`, and `[role="code"]` |
+| Native Markdown files | Fence detection exists; the live Docs workflow is unverified |
+| Block choices | Session-only; document enable/disable persists locally |
+| Split view | Read-only source copy; edit the original in Code view |
+| Auto theme | Follows device appearance, not a separate Docs theme |
+| Expanded viewer | Scroll and zoom; drag-to-pan is pending |
+| Performance | Mermaid initializes on demand but ships in the content-script bundle |
 
-## Documentation
+## Documentation and contributions
 
-| Guide | What it covers |
-| --- | --- |
-| [Getting started](docs/getting-started.md) | Installation, controls, and troubleshooting |
-| [Development](docs/development.md) | Local setup, checks, screenshots, and releases |
-| [Architecture](docs/architecture.md) | Adapter boundary, rendering pipeline, and security |
-| [Design system](docs/design-system.md) | Google design research, shared tokens, and UI rules |
-| [Roadmap](docs/roadmap.md) | v1 milestones and remaining feasibility work |
-| [Privacy](docs/privacy.md) | Permissions, local storage, and document data |
-| [Changelog](CHANGELOG.md) | Shipped changes and work on main |
+Start at the [documentation index](docs/README.md). It links installation, architecture, design, privacy, and the v1 roadmap.
 
-## Contribute
-
-Bug reports, focused improvements, and verified Google Docs integration research are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md). Use the issue templates for bugs and proposals; report sensitive findings through the [security policy](SECURITY.md).
+For bugs and proposals, use the [issue templates](https://github.com/leracherry/google-docs-mermaid/issues/new/choose). Read [Contributing](CONTRIBUTING.md), the [Code of Conduct](CODE_OF_CONDUCT.md), and the [security policy](SECURITY.md) before submitting sensitive findings.
 
 ## License and credits
 
-Licensing is not yet selected; `UNLICENSED` is intentional. See [third-party notices](THIRD_PARTY_NOTICES.md) for dependency licenses. The whale-tail artwork was supplied by the project owner and is used as the project identity; this does not establish a separate redistribution license for the artwork.
+Licensing is undecided; the package is currently `UNLICENSED`. See [third-party notices](THIRD_PARTY_NOTICES.md) for runtime dependency licenses and artwork notes.
 
-This is an independent project inspired by Google's [Material design system](https://m3.material.io/) and [Workspace guidance](https://developers.google.com/workspace/add-ons/guides/workspace-best-practices). It is not affiliated with or endorsed by Google. Google Docs is a trademark of Google LLC.
+The supplied whale-tail artwork is the project identity. The independently implemented UI draws on published Google Material and Workspace guidance, linked in the [design-system reference](docs/design-system.md#references). This project is not affiliated with or endorsed by Google.

@@ -1,24 +1,12 @@
 # Design system
 
-Mermaid for Google Docs should feel at home beside the document. It uses a restrained Workspace-inspired interpretation of Material: blue accents, neutral surfaces, compact desktop controls, clear type hierarchy, and predictable interaction states. These are project choices based on the sources below, not an official Google Docs component specification.
+[Documentation](README.md) · [Project overview](../README.md)
 
-## Research and decisions
+The extension uses a restrained Workspace-inspired treatment: blue accents, neutral surfaces, compact desktop controls, readable labels, and predictable focus states. These are documented project decisions informed by Google's published guidance. Exact internal Docs component tokens are not a public API.
 
-| Official reference | Applied decision |
-| --- | --- |
-| [Material color roles](https://m3.material.io/styles/color/the-color-system) | Shared semantic surface, primary, outline, and error roles; pair foreground and background colors in each theme |
-| [Material typography](https://m3.material.io/styles/typography/applying-type) | Distinguish title, body, label, and supporting text rather than making every element bold |
-| [Material Web typography](https://github.com/material-components/material-web/blob/main/docs/theming/typography.md) | Prefer Google Sans when available, then locally installed Roboto and Arial; do not fetch fonts remotely |
-| [Material interaction states](https://m3.material.io/foundations/interaction/states/overview) | Explicit hover, pressed, disabled, and keyboard focus states |
-| [Google touch target guidance](https://support.google.com/accessibility/android/answer/7101858) | 48px targets on coarse-pointer surfaces; desktop diagram buttons remain compact at 36px |
-| [Workspace best practices](https://developers.google.com/workspace/add-ons/guides/workspace-best-practices) | Add the missing capability, keep controls focused, limit permissions, and handle errors close to their cause |
-| [Editor add-on styling guidance](https://developers.google.com/workspace/add-ons/guides/css) | Aim for visual continuity with the editor; bundle our own CSS instead of loading Google's legacy CSS package |
+## Shared implementation
 
-The extension is Manifest V3, not an Apps Script or Card-service add-on. Card widgets, OAuth scope rules, and publishing requirements from those platforms are not adopted as extension implementation requirements.
-
-## Shared tokens
-
-`src/styles/design-tokens.ts` is the source for popup and Shadow DOM styling. Use semantic roles, not feature-specific color literals.
+[design-tokens.ts](../src/styles/design-tokens.ts) is the single source for UI colors and geometry. It generates CSS variables for the popup and Shadow DOM; [themes.ts](../src/mermaid/themes.ts) derives the diagram theme and embedded SVG styling from those values.
 
 | Role | Light | Dark |
 | --- | --- | --- |
@@ -27,53 +15,84 @@ The extension is Manifest V3, not an Apps Script or Card-service add-on. Card wi
 | Surface | `#ffffff` | `#1f1f1f` |
 | On surface | `#1f1f1f` | `#e3e3e3` |
 | Supporting text | `#444746` | `#c4c7c5` |
+| Outline | `#747775` | `#8e918f` |
 | Outline variant | `#c4c7c5` | `#444746` |
 
-These are Workspace-inspired project palette values, not a claim that Google publishes these exact values as the Docs design API. Theme Auto follows device appearance. A separate Docs theme detector is pending.
+These palette values align the project with Workspace; they are not an official Google Docs styling API. Auto theme follows device appearance.
 
-## Layout and typography
+## Shapes, lines, and type
 
-- Use 4px increments for spacing, with 12–16px content padding.
-- Popup: 360px wide; 18px/24px title, 14px body, 12px supporting text.
-- Inline preview: 12px corners; settings surfaces: 16px corners; expanded viewer: 28px corners; text buttons: pill shape.
-- Keep the document visually dominant. Brand the popup header and show only a small logo in each block's header.
-- Keep actions readable at rest. Do not reduce toolbar text opacity merely to make the UI look quiet.
-- Use icons to support labels; icon-only buttons need accessible names and tooltips.
+| Element | Treatment |
+| --- | --- |
+| Diagram card | 8px corners where rectangular; 1px neutral outline; no node shadow |
+| Inline preview container | 12px corners and restrained elevation |
+| Settings surface | 16px corners with tonal separation |
+| Expanded viewer | 28px corners and a neutral scrim |
+| Buttons | Pill shape; 36px compact desktop target |
+| Touch controls | At least 48px high on coarse-pointer surfaces |
+| Connectors | 1.5px strokes with rounded joins; preserve semantic dashes and thickness |
+| Toolbar icons | 2px strokes |
+| UI dividers | 1px neutral strokes |
+| Popup title/body/support | 18px/14px/12px with a clear hierarchy |
+
+Use 4px spacing increments and 12–16px content padding. Font preferences are Google Sans, locally installed Roboto, then Arial/sans-serif. No fonts are downloaded.
+
+## Diagram behavior
+
+Mermaid uses its customizable base theme and classic look. Shared colors cover nodes, actors, notes, activations, clusters, state/class labels, relations, chart series, Gantt tasks, and architecture edges.
+
+The SVG receives shape and line styling before sanitization, so **Copy SVG** retains the treatment. Diamonds, circles, stadiums, arrowheads, dashed connectors, and deliberately thick/invisible edges keep their meaning. Source-provided colors can still express semantic emphasis; the original source is never rewritten.
 
 ## Interaction and accessibility
 
-Use native buttons, selects, and checkbox-backed switches. Tab order follows the visual order. Every control has a visible focus ring; errors use text and a warning icon, not color alone. Expanded view has a dialog role, focus containment, Escape dismissal, and focus restoration.
+Use native buttons, selects, and checkbox-backed switches. Give icon-only controls accessible names and tooltips. Keep actions readable at rest; use visible focus rings and subtle hover/pressed fills.
 
-Hover and pressed fills are subtle. Transitions are limited to 150ms color/state changes; respect `prefers-reduced-motion`. This restrained desktop choice does not attempt to implement Material's expressive motion system.
+Errors have text and a warning icon, not color alone. Expanded view contains focus, closes with Escape, and restores focus. Settings are disabled while loading/saving; failed writes restore the prior value and show a recovery message.
 
-Settings are disabled while loading or saving. A failed write leaves the previous value in place and shows a recovery message. Auto theme responds to device appearance changes. No fonts, icon services, or stylesheets are requested from external hosts.
+State transitions last 150ms and respect reduced motion. The implementation does not attempt Material's expressive motion system.
+
+## Visual examples
+
+These screenshots come from the built extension on synthetic fixtures. They do not establish native Docs canvas compatibility.
+
+### Flowchart
+
+![Flowchart with rounded cards, a semantic diamond, a stadium, and a dashed connector](assets/diagram-shapes.png)
+
+### Sequence diagram
+
+![Sequence diagram with matching actors, lifelines, and note surfaces](assets/sequence-light.png)
+
+### Settings in light mode
+
+![Extension settings in light mode](assets/popup-light.png)
+
+### Settings in dark mode
+
+![Extension settings in dark mode](assets/popup-dark.png)
 
 ## Brand assets
 
-The supplied artwork is preserved in `docs/assets/logo.png`. `public/icons/16.png`, `32.png`, `48.png`, and `128.png` are resized PNG derivatives for Chrome's manifest and action. Keep the blue document, white whale tail, folded corner, original proportions, and white background. Do not recreate it with a substitute symbol.
+The supplied source artwork is [logo.png](assets/logo.png). The README uses [logo-small.png](assets/logo-small.png) so it remains compact without HTML sizing. Chrome variants are in [public/icons](../public/icons) at 16, 32, 48, and 128px.
 
-For future options pages and store materials, reuse this logo, palette, type hierarchy, plain language, and spacing. Store assets and a public landing page have not been created yet.
+Preserve the blue document, white whale tail, folded corner, proportions, and white background. Reuse the identity and tokens in future options pages and store materials; those products have not been created yet.
 
 ## Review checklist
 
-Check the popup and diagram in both themes, keyboard-only navigation, focus visibility, reduced motion, disabled states, clipped labels, normal document wheel scrolling, and icon legibility at actual size. Screenshots must come from the real built extension and be labeled as fixtures when native Docs integration has not been verified.
+Check both themes, keyboard navigation, focus visibility, reduced motion, disabled states, label clipping, normal document scrolling, icon legibility, and copied SVG appearance. Generate screenshots through the [documented workflow](development.md#screenshots).
 
-## Diagram colors
+## References
 
-Mermaid uses its customizable base theme with matching blue node fills, neutral connectors, and the same local font stack as the controls. Renderer theme variables are derived from the same light/dark palette used by the UI. Source-provided diagram styling can still change individual nodes; we do not rewrite user source.
+| Official source | How it informs the project |
+| --- | --- |
+| [Workspace web refresh](https://workspaceupdates.googleblog.com/2023/03/refreshed-ui-google-drive-docs-sheets-slides.html) | Establishes Workspace's adoption of Material Design 3 |
+| [Material color roles](https://m3.material.io/styles/color/the-color-system) | Semantic surface, primary, outline, and error roles |
+| [Material typography](https://m3.material.io/styles/typography/applying-type) | Title, body, label, and supporting-text hierarchy |
+| [Material Web typography](https://github.com/material-components/material-web/blob/main/docs/theming/typography.md) | Local font-stack decisions |
+| [Material states](https://m3.material.io/foundations/interaction/states/overview) | Hover, pressed, disabled, and focus treatments |
+| [Material shape guidance](https://developer.android.com/codelabs/m3-design-theming) | Role-based corner hierarchy |
+| [Google touch targets](https://support.google.com/accessibility/android/answer/7101858) | Coarse-pointer target sizes |
+| [Workspace best practices](https://developers.google.com/workspace/add-ons/guides/workspace-best-practices) | Focused controls and narrow permissions |
+| [Editor add-on styling](https://developers.google.com/workspace/add-ons/guides/css) | Visual continuity with the host editor |
 
-## Consistency pass
-
-The shared TypeScript tokens generate the popup/overlay CSS variables and Mermaid theme values. Colors cannot drift between separately maintained CSS and renderer palettes. Flat, softly rounded diagram cards use 8px corners, 1px neutral outlines, and 1.5px connectors. Toolbar icons use a consistent 2px stroke; UI dividers remain 1px. Native toolbar selectors use quiet backgrounds instead of boxed input borders. Settings cards use tonal separation and 16px corners rather than outlining every section.
-
-Mermaid's classic look avoids its automatic node shadows. The SVG receives embedded shape and line styling before sanitization, so copying SVG retains the same appearance. Flowchart diamonds, circles, stadium shapes, dashed connectors, and deliberately thick/invisible edges retain their meaning. Diagram-specific theme variables also cover actors, notes, activations, clusters, state/class labels, relations, timeline/category colors, pie/XY charts, Gantt tasks, and architecture edges. Explicit source-provided colors remain available for semantic emphasis; the document source is never rewritten.
-
-Google confirms that the [Workspace web refresh follows Material Design 3](https://workspaceupdates.googleblog.com/2023/03/refreshed-ui-google-drive-docs-sheets-slides.html). The [Material shape guidance](https://developer.android.com/codelabs/m3-design-theming) informs our role-based corner hierarchy. Exact internal Docs component tokens are not a public API, so these values are our documented Workspace-aligned implementation rather than a pixel-perfect certification.
-
-## Rendered examples
-
-These are screenshots of the built extension on fixtures, not native canvas compatibility claims.
-
-![Flowchart with semantic shapes and a dashed connector](assets/diagram-shapes.png)
-
-![Sequence diagram with matching actors and note surfaces](assets/sequence-light.png)
+This is a Manifest V3 extension, not an Apps Script or Card-service add-on. Platform-specific widget, OAuth, and publishing requirements from those guides are not extension implementation requirements.
