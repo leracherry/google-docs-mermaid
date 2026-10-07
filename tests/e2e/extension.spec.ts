@@ -71,3 +71,50 @@ test('built extension renders, preserves valid preview, follows edits and remove
     await expect(page.locator('.diagram')).toHaveCount(0);
   } finally { await context.close(); await rm(profile, { recursive: true, force: true }); }
 });
+
+test('Workspace diagram styling preserves notation across diagram families', async () => {
+  const profile = await mkdtemp(path.join(os.tmpdir(), 'gdm-style-'));
+  const extension = path.resolve('.output/chrome-mv3');
+  const context = await chromium.launchPersistentContext(profile, {
+    channel: 'chromium', headless: true,
+    args: [`--disable-extensions-except=${extension}`, `--load-extension=${extension}`],
+  });
+  try {
+    await context.route('https://docs.google.com/**', route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><html><body><pre data-code-block style="margin:40px;width:650px;min-height:100px">graph LR\nsubgraph Group\nA[Source]\nend\nA -.-> B{Valid?}\nB --> C([Preview])</pre></body></html>' }));
+    const page = await context.newPage();
+    await page.goto('https://docs.google.com/document/d/style-fixture/edit');
+    const preview = page.locator('google-docs-mermaid').locator('.canvas');
+    await expect(preview.locator('svg')).toBeVisible({ timeout: 15000 });
+    const card = preview.locator('.node rect').first();
+    await expect(card).toHaveAttribute('rx', '8');
+    const appearance = await card.evaluate(el => {
+      const style = getComputedStyle(el);
+      return { fill: style.fill, stroke: style.stroke, width: style.strokeWidth, filter: style.filter };
+    });
+    expect(appearance).toEqual({ fill: 'rgb(211, 227, 253)', stroke: 'rgb(116, 119, 117)', width: '1px', filter: 'none' });
+    const line = preview.locator('.flowchart-link').first();
+    expect(await line.evaluate(el => getComputedStyle(el).strokeWidth)).toBe('1.5px');
+    expect(await line.evaluate(el => getComputedStyle(el).strokeDasharray)).not.toBe('none');
+    await expect(preview.locator('.node polygon')).toHaveCount(1);
+    if (process.env.UPDATE_SCREENSHOTS) await page.locator('.diagram').screenshot({ path: 'docs/assets/diagram-shapes.png' });
+    const cases = [
+      { source: 'sequenceDiagram\nparticipant Browser\nparticipant Docs\nBrowser->>Docs: Render diagram\nNote over Docs: Local preview', selector: 'rect.actor', label: 'Local preview', screenshot: 'sequence-light' },
+      { source: 'classDiagram\nclass Diagram {\n+render()\n}\nclass Source\nSource --> Diagram', selector: '.node', label: 'Diagram', screenshot: 'class-light' },
+      { source: 'stateDiagram-v2\nDraft --> Preview: Render\nPreview --> Draft: Edit', selector: '.node', label: 'Draft', screenshot: 'state-light' },
+      { source: 'erDiagram\nDOCUMENT ||--o{ DIAGRAM : contains', selector: '.node', label: 'DOCUMENT', screenshot: 'relations-light' },
+      { source: 'pie\n"Docs" : 3\n"Diagrams" : 2', selector: 'svg', label: 'Docs', screenshot: 'pie-light' },
+      { source: 'gantt\n title Preview pipeline\n dateFormat YYYY-MM-DD\n section Rendering\n Parse :2026-10-06,1d\n Render :2026-10-07,1d', selector: 'svg', label: 'Preview pipeline', screenshot: 'gantt-light' },
+    ];
+    for (const example of cases) {
+      const previousId = await preview.locator('svg').getAttribute('id');
+      await page.locator('pre[data-code-block]').evaluate((el, source) => { el.textContent = source; }, example.source);
+      await expect(preview.locator('svg')).not.toHaveAttribute('id', previousId!);
+      await expect(preview).toContainText(example.label);
+      await expect(preview.locator(example.selector).first()).toBeVisible();
+      if (example.selector === 'rect.actor') await expect(preview.locator('rect.actor').first()).toHaveAttribute('rx', '8');
+      const hasShadow = await preview.locator(example.selector).evaluateAll(elements => elements.some(el => getComputedStyle(el).filter !== 'none'));
+      expect(hasShadow).toBe(false);
+      if (process.env.UPDATE_SCREENSHOTS) await page.locator('.diagram').screenshot({ path: `docs/assets/${example.screenshot}.png` });
+    }
+  } finally { await context.close(); await rm(profile, { recursive: true, force: true }); }
+});

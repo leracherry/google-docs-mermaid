@@ -20,7 +20,7 @@ A Chrome extension that recognizes Mermaid source, renders diagrams locally, and
 - **Live previews.** Changes render after a short pause; syntax errors preserve the last valid diagram.
 - **Source-first controls.** Switch between Preview, Split, and Code without replacing the original text.
 - **Room to explore.** Zoom, fit, expand, and copy Mermaid source or SVG.
-- **Workspace-inspired UI.** Compact controls, shared Material color roles, light/dark themes, and keyboard focus states.
+- **Workspace-inspired visuals.** Shared colors, rounded cards, thin outlines, and restrained connectors across the controls and diagrams, with light/dark themes and keyboard focus states.
 - **Local by default.** No backend, account, OAuth, telemetry, or remote rendering.
 - **Your preferences.** Choose a theme, toggle detection, and disable previews for a document.
 

@@ -4,6 +4,9 @@ Changes are listed by release, with unreleased work first.
 
 ## Unreleased
 
+- Unify UI and diagram colors/geometry under one token source; flatten Mermaid nodes, soften rectangular corners, and normalize connectors and outlines.
+- Align diagram actors, notes, clusters, labels, and exported SVG with the same light/dark treatment.
+
 - Add the supplied whale-tail logo to extension icons, popup, inline header, and README.
 - Restyle the popup and diagram controls with shared Workspace-inspired Material tokens.
 - Add light/dark styling, switch controls, focus rings, reduced motion, and expanded-view focus management.

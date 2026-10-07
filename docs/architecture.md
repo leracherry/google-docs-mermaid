@@ -14,6 +14,6 @@ The initial adapter deliberately does not guess internal canvas selectors or cla
 
 ## UI and branding
 
-The popup and isolated overlay share semantic CSS variables from `src/styles/tokens.css`. The popup uses native checkbox-backed switches and selects; inline previews use compact native controls and labeled SVG icons. Expanded view contains focus and restores it on close. Both surfaces support light/dark preferences and reduced motion.
+The popup and isolated overlay share semantic CSS variables from `src/styles/design-tokens.ts`. The popup uses native checkbox-backed switches and selects; inline previews use compact native controls and labeled SVG icons. Expanded view contains focus and restores it on close. Both surfaces support light/dark preferences and reduced motion.
 
 Chrome uses the supplied logo at 16/32/48/128px. The inline header loads only the 32px icon through a narrowly scoped web-accessible resource for Docs URLs. This static packaged asset adds no document-data upload or remote dependency. See [Design system](design-system.md).

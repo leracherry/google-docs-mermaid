@@ -1,4 +1,3 @@
-@import './tokens.css';
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body { font-family: var(--gdm-font); font-size: 14px; }
@@ -7,10 +6,10 @@ body { font-family: var(--gdm-font); font-size: 14px; }
 .brand-logo { width: 48px; height: 48px; border-radius: 8px; }
 h1 { font-size: 18px; line-height: 24px; font-weight: 500; margin: 0; }
 .brand-subtitle { margin: 4px 0 0; color: var(--md-sys-color-on-surface-variant); font-size: 12px; }
-.settings-section { margin: 12px; padding: 4px 16px; background: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--gdm-radius-medium); }
+.settings-section { margin: 12px; padding: 4px 16px; background: var(--md-sys-color-surface); border: 0; border-radius: var(--gdm-radius-large); }
 .settings-section h2 { margin: 12px 0 4px; color: var(--md-sys-color-on-surface-variant); font-size: 12px; font-weight: 500; }
 .setting-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; padding: 10px 0; cursor: pointer; }
-.setting-row + .setting-row { border-top: 1px solid var(--md-sys-color-outline-variant); }
+.setting-row + .setting-row { border-top: var(--gdm-border-width) solid var(--md-sys-color-outline-variant); }
 .setting-copy { display: block; }
 .setting-title { display: block; font-weight: 500; }
 .setting-description { display: block; font-size: 12px; color: var(--md-sys-color-on-surface-variant); margin-top: 2px; }
@@ -22,7 +21,7 @@ h1 { font-size: 18px; line-height: 24px; font-weight: 500; margin: 0; }
 .switch input:checked + .switch-track::after { width: 24px; height: 24px; margin: 2px; background: var(--md-sys-color-on-primary); transform: translateX(20px); }
 .switch input:focus-visible + .switch-track { outline: 2px solid var(--md-sys-color-primary); outline-offset: 4px; }
 .switch input:disabled + .switch-track { opacity: .38; }
-select { font: inherit; padding: 8px 10px; min-height: 40px; background: var(--md-sys-color-surface); color: inherit; border: 1px solid var(--md-sys-color-outline); border-radius: var(--gdm-radius-small); }
+select { font: inherit; padding: 8px 10px; min-height: 40px; background: var(--md-sys-color-surface); color: inherit; border: var(--gdm-border-width) solid var(--md-sys-color-outline); border-radius: var(--gdm-radius-small); }
 select:focus-visible, a:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 3px; }
 .popup-footer { padding: 4px 20px 16px; color: var(--md-sys-color-on-surface-variant); font-size: 12px; }
 .popup-footer p { margin: 8px 0; }

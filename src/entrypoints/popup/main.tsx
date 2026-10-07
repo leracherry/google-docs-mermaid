@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { browser } from 'wxt/browser';
 import { defaults, readPreferences, documentKey, type Preferences } from '../../state/preferences';
 import '../../styles/popup.css';
+import { designTokenCss } from '../../styles/design-tokens';
 
 function SettingSwitch({ label, description, checked, disabled, onChange }: {
   label: string; description: string; checked: boolean; disabled?: boolean; onChange: (value: boolean) => void;
@@ -56,6 +57,7 @@ function Popup() {
   };
   const disabled = !loaded || saving;
   return <main className={`popup ${theme}`} aria-busy={!loaded}>
+    <style>{designTokenCss}</style>
     <header className="brand-header">
       <img className="brand-logo" src="/icons/128.png" width="48" height="48" alt="" />
       <div><h1>Mermaid for Google Docs</h1><p className="brand-subtitle">Diagrams, right where you write.</p></div>

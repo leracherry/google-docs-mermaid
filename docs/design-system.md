@@ -18,7 +18,7 @@ The extension is Manifest V3, not an Apps Script or Card-service add-on. Card wi
 
 ## Shared tokens
 
-`src/styles/tokens.css` is the source for popup and Shadow DOM styling. Use semantic roles, not feature-specific color literals.
+`src/styles/design-tokens.ts` is the source for popup and Shadow DOM styling. Use semantic roles, not feature-specific color literals.
 
 | Role | Light | Dark |
 | --- | --- | --- |
@@ -35,7 +35,7 @@ These are Workspace-inspired project palette values, not a claim that Google pub
 
 - Use 4px increments for spacing, with 12–16px content padding.
 - Popup: 360px wide; 18px/24px title, 14px body, 12px supporting text.
-- Inline preview: 12px corners; expanded viewer: 16px corners; text buttons: pill shape.
+- Inline preview: 12px corners; settings surfaces: 16px corners; expanded viewer: 28px corners; text buttons: pill shape.
 - Keep the document visually dominant. Brand the popup header and show only a small logo in each block's header.
 - Keep actions readable at rest. Do not reduce toolbar text opacity merely to make the UI look quiet.
 - Use icons to support labels; icon-only buttons need accessible names and tooltips.
@@ -60,4 +60,20 @@ Check the popup and diagram in both themes, keyboard-only navigation, focus visi
 
 ## Diagram colors
 
-Mermaid uses its customizable base theme with matching blue node fills, neutral connectors, and Arial labels. Renderer theme variables mirror the semantic light/dark palette. Source-provided diagram styling can still change individual nodes; we do not rewrite user source.
+Mermaid uses its customizable base theme with matching blue node fills, neutral connectors, and the same local font stack as the controls. Renderer theme variables are derived from the same light/dark palette used by the UI. Source-provided diagram styling can still change individual nodes; we do not rewrite user source.
+
+## Consistency pass
+
+The shared TypeScript tokens generate the popup/overlay CSS variables and Mermaid theme values. Colors cannot drift between separately maintained CSS and renderer palettes. Flat, softly rounded diagram cards use 8px corners, 1px neutral outlines, and 1.5px connectors. Toolbar icons use a consistent 2px stroke; UI dividers remain 1px. Native toolbar selectors use quiet backgrounds instead of boxed input borders. Settings cards use tonal separation and 16px corners rather than outlining every section.
+
+Mermaid's classic look avoids its automatic node shadows. The SVG receives embedded shape and line styling before sanitization, so copying SVG retains the same appearance. Flowchart diamonds, circles, stadium shapes, dashed connectors, and deliberately thick/invisible edges retain their meaning. Diagram-specific theme variables also cover actors, notes, activations, clusters, state/class labels, relations, timeline/category colors, pie/XY charts, Gantt tasks, and architecture edges. Explicit source-provided colors remain available for semantic emphasis; the document source is never rewritten.
+
+Google confirms that the [Workspace web refresh follows Material Design 3](https://workspaceupdates.googleblog.com/2023/03/refreshed-ui-google-drive-docs-sheets-slides.html). The [Material shape guidance](https://developer.android.com/codelabs/m3-design-theming) informs our role-based corner hierarchy. Exact internal Docs component tokens are not a public API, so these values are our documented Workspace-aligned implementation rather than a pixel-perfect certification.
+
+## Rendered examples
+
+These are screenshots of the built extension on fixtures, not native canvas compatibility claims.
+
+![Flowchart with semantic shapes and a dashed connector](assets/diagram-shapes.png)
+
+![Sequence diagram with matching actors and note surfaces](assets/sequence-light.png)
