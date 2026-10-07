@@ -35,7 +35,9 @@ Build before running browser tests. Unit tests do not require a browser.
 
 The browser suite loads the actual built extension in a temporary Chromium profile. It intercepts a Google Docs URL and serves a synthetic page with DOM-backed code blocks. No Google account or real document is accessed.
 
-Coverage includes source edits, error recovery, view changes, focus containment, block deletion, preferences, light/dark settings, and visual treatment across flowchart, sequence, class, state, ER, pie, and Gantt diagrams.
+Coverage includes source edits, error recovery, view changes, focus containment, clipboard actions, actual SVG zoom, unique IDs and marker references, dynamic block attributes, rendered line breaks, block deletion/reinsertion, document isolation, persisted preferences, light/dark settings, hostile inputs, and resource loading prevention. Browser fixtures exercise 1, 10, 50 and 100 blocks with viewport gating and scrolling. Visual checks cover flowchart, sequence, class, state, ER, pie and Gantt diagrams.
+
+Unit tests separately cover render cancellation/debounce, queue/cache behavior, input limits and sanitization, settings validation/save failures, observer cleanup, and release tag validation. `test-results/results.json` records browser results and fixture timings. These timings measure synthetic lifecycle scenarios, not full rendering of 100 complex diagrams.
 
 These tests verify the extension pipeline. They do not establish compatibility with the native Docs canvas editor.
 
@@ -52,7 +54,7 @@ Shared visual tokens live in [design-tokens.ts](../src/styles/design-tokens.ts).
 
 ## CI artifacts
 
-The [CI workflow](../.github/workflows/ci.yml) runs on main and pull requests. It installs locked dependencies, checks docs/types/tests, builds the extension, runs browser scenarios, and uploads the extension ZIP as `chrome-extension`.
+The [CI workflow](../.github/workflows/ci.yml) runs on main and pull requests. It installs locked dependencies, audits dependencies, checks docs/types/tests, builds the extension, runs browser scenarios, and uploads the extension ZIP as `chrome-extension`. Browser results are uploaded even on failure. Both CI and release packaging enforce a 15-minute timeout.
 
 To install an artifact from a successful run, download `chrome-extension`, extract it, and then extract the extension ZIP inside it. Load the resulting folder containing `manifest.json`.
 
@@ -73,3 +75,5 @@ Chrome Web Store publishing is not configured.
 ## Build constraints
 
 Vite 6 and the compatible React plugin are pinned for the installed Node runtime. Mermaid initializes only when a candidate needs rendering, but WXT currently bundles its bytes into the approximately 5.5MB content script. Bundle performance remains a v1 milestone.
+
+KaTeX is overridden to 0.18.2 to address [GHSA-238p-pmpm-9mq7](https://github.com/KaTeX/KaTeX/security/advisories/GHSA-238p-pmpm-9mq7). Vitest 4.1.11 removes the vulnerable older test dependency chain while retaining Vite 6 compatibility. Run `pnpm audit` when updating dependencies.

@@ -7,6 +7,7 @@ import { renderMermaid } from '../mermaid/renderer';
 import type { Preferences } from '../state/preferences';
 export function DiagramBlock({ block, preferences, dark }: { block: CodeBlock; preferences: Preferences; dark: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
   const [view, setView] = useState('preview');
   const [mode, setMode] = useState('auto');
   const [svg, setSvg] = useState('');
@@ -21,17 +22,29 @@ export function DiagramBlock({ block, preferences, dark }: { block: CodeBlock; p
   const theme = preferences.theme === 'auto' ? dark ? 'dark' : 'light' : preferences.theme;
   const allowed = mode !== 'disabled' && mode !== 'code' && (mode === 'mermaid' || candidate?.explicit || preferences.autoDetect);
   useEffect(() => {
-    if (!visible || !source || !allowed) return;
+    const canvas = canvasRef.current;
+    const wheel = (event: WheelEvent) => {
+      if (!event.ctrlKey && !event.metaKey) return;
+      event.preventDefault();
+      setZoom(value => Math.max(.25, Math.min(4, value - event.deltaY / 500)));
+    };
+    canvas?.addEventListener('wheel', wheel, { passive: false });
+    return () => canvas?.removeEventListener('wheel', wheel);
+  }, [view, allowed, visible, expanded, width, Boolean(candidate), mode]);
+  useEffect(() => {
+    setBusy(false);
+    if ((!visible && !expanded) || !source || !allowed) return;
     let cancelled = false;
+    const controller = new AbortController();
     const timer = setTimeout(async () => {
       setBusy(true);
-      const result = await renderMermaid(source, theme);
+      const result = await renderMermaid(source, theme, controller.signal);
       if (cancelled) return;
       setBusy(false);
       if (result.svg) { setSvg(result.svg); setError(''); } else setError(result.error ?? 'Unable to render');
     }, 300);
-    return () => { cancelled = true; clearTimeout(timer); };
-  }, [source, theme, visible, allowed]);
+    return () => { cancelled = true; controller.abort(); clearTimeout(timer); };
+  }, [source, theme, visible, allowed, expanded]);
   useEffect(() => {
     if (!expanded) return;
     const previous = document.activeElement?.shadowRoot?.activeElement ?? document.activeElement;
@@ -50,13 +63,16 @@ export function DiagramBlock({ block, preferences, dark }: { block: CodeBlock; p
   }, [expanded]);
   useEffect(() => { const escape = (e: KeyboardEvent) => { if (e.key === 'Escape') setExpanded(false); };
     window.addEventListener('keydown', escape); return () => window.removeEventListener('keydown', escape); }, []);
-  if (!candidate && mode === 'auto' || (!visible && !expanded) || width === 0) return null;
+  if ((!candidate && mode === 'auto') || (!visible && !expanded) || (width === 0 && !expanded)) return null;
   const copy = async (text: string) => { try { await navigator.clipboard.writeText(text); } catch { setError('Clipboard unavailable'); } };
   return <>{expanded && <div className="viewer-backdrop" aria-hidden="true" onClick={() => setExpanded(false)} />}<section ref={sectionRef} role={expanded ? 'dialog' : undefined} aria-modal={expanded ? true : undefined} className={`diagram ${theme} ${expanded ? 'expanded' : ''}`} aria-label="Mermaid diagram"
     style={expanded ? undefined : { top: view === 'code' || !allowed ? Math.max(0, top - 68) : top, left, width }}>
     <header>
       <img className="block-logo" src={browser.runtime.getURL('/icons/32.png')} alt="" />
-      <select aria-label="Block mode" value={mode} onChange={e => { setMode(e.target.value); setView('code'); }}>
+      <select aria-label="Block mode" value={mode} onChange={e => {
+        const next = e.target.value;
+        setMode(next); setView(next === 'code' || next === 'disabled' ? 'code' : 'preview');
+      }}>
         <option value="auto">Mermaid · Auto</option><option value="mermaid">Mermaid</option><option value="code">Code</option><option value="disabled">Never render</option>
       </select>
       <select className="view-select" aria-label="View" value={view} onChange={e => setView(e.target.value)}>
@@ -66,7 +82,7 @@ export function DiagramBlock({ block, preferences, dark }: { block: CodeBlock; p
       {expanded && <button className="icon-button" aria-label="Close expanded viewer" title="Close" onClick={() => setExpanded(false)}><Icon name="close" /></button>}
     </header>
     {allowed && view !== 'code' && <>
-      <div className="canvas" onWheel={e => { if (e.ctrlKey || e.metaKey) { e.preventDefault(); setZoom(z => Math.max(.25, Math.min(4, z - e.deltaY / 500))); } }}>
+      <div className="canvas" ref={canvasRef}>
         <div style={{ width: `${zoom * 100}%` }} dangerouslySetInnerHTML={{ __html: svg }} />
       </div>
       <nav aria-label="Diagram controls">

@@ -24,7 +24,7 @@ Native Google Docs canvas source extraction is not implemented. M0 requires a re
 
 The [detector](../src/mermaid/detector.ts) recognizes explicit Mermaid fences and candidate starters before loading the renderer. Each block waits 300ms after edits and skips new rendering outside the nearby viewport.
 
-The [renderer](../src/mermaid/renderer.ts) serializes Mermaid configuration/render calls, uses strict security and size limits, and sanitizes SVG with DOMPurify. A source/theme cache holds up to 100 diagrams. Block effects discard stale results and retain the previous valid SVG on errors.
+The [renderer](../src/mermaid/renderer.ts) serializes Mermaid configuration/render calls, uses strict security and size limits, and sanitizes SVG with DOMPurify. A source/theme cache holds up to 100 diagrams. Every returned SVG receives unique element IDs and rewritten references, including cache hits. Block effects abort queued stale work, discard stale results and retain the previous valid SVG on errors. Input over 50,000 characters and image/resource-bearing syntax are rejected before Mermaid parsing or temporary DOM creation.
 
 Mermaid initializes on demand, but its bytes are currently included in the content-script bundle.
 
@@ -38,4 +38,4 @@ The React overlay lives in a Shadow Root. Expanded view contains keyboard focus 
 
 [Preferences](../src/state/preferences.ts) and document enable/disable choices live in extension local storage. Block mode/view choices are session-only. Source and SVG exist in memory and are not uploaded or persisted.
 
-The manifest requests `storage`. The static 32px logo is exposed only to Docs URLs so the inline header can display it. Other icons are packaged for Chrome's toolbar and extension list. There is no backend, OAuth, telemetry, or remote renderer. See [Privacy](privacy.md) and [Security](../SECURITY.md).
+The manifest requests `storage` and `activeTab`; the latter permits the popup to identify the document after a toolbar click. The static 32px logo is exposed only to Docs URLs so the inline header can display it. Other icons are packaged for Chrome's toolbar and extension list. There is no backend, OAuth, telemetry, or remote renderer. See [Privacy](privacy.md) and [Security](../SECURITY.md).

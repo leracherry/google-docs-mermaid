@@ -10,6 +10,7 @@ Mermaid for Google Docs is a developer alpha. The renderer and controls are exer
 | --- | --- |
 | [Getting started](getting-started.md) | Install the extension, understand controls, and troubleshoot |
 | [Development](development.md) | Build, run checks, refresh screenshots, and publish releases |
+| [Test report](testing-report.md) | Review fixed bugs, automated evidence and remaining release blockers |
 | [Architecture](architecture.md) | Understand the adapter, rendering pipeline, state, and security |
 | [Design system](design-system.md) | Use shared visual tokens and inspect rendered examples |
 | [Privacy](privacy.md) | Review permissions, stored preferences, and document data |

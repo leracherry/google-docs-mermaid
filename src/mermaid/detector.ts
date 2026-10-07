@@ -3,7 +3,7 @@ const starter = /^(?:graph|flowchart)\s+(?:TB|TD|BT|RL|LR)\b|^(?:sequenceDiagram
 export function detectCandidate(text: string, language?: string): Candidate | undefined {
   const normalized = text.replace(/\r\n/g, '\n').trim();
   const fence = normalized.match(/^(`{3,}|~{3,})([^\n]*)\n([\s\S]*?)\n\1\s*$/);
-  const label = (fence?.[2]?.trim() || language || '').toLowerCase();
+  const label = (fence?.[2]?.trim() || language || '').trim().toLowerCase();
   if (label && label !== 'mermaid') return;
   const source = fence?.[3]?.trim() ?? normalized;
   if (label === 'mermaid') return { source, explicit: true };

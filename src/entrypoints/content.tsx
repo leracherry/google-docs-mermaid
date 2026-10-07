@@ -12,13 +12,21 @@ import { designTokenCss } from '../styles/design-tokens';
 export function Overlay() {
   const [blocks, setBlocks] = useState<CodeBlock[]>([]);
   const [preferences, setPreferences] = useState<Preferences>(defaults);
-  const [enabled, setEnabled] = useState(true);
+  const [enabled, setEnabled] = useState(false);
   const [dark, setDark] = useState(matchMedia('(prefers-color-scheme: dark)').matches);
   useEffect(() => {
     const key = documentKey(location.href);
     let stopped = false;
-    const refresh = async () => { const [prefs, doc] = await Promise.all([readPreferences(), browser.storage.local.get(key)]);
-      if (!stopped) { setPreferences(prefs); setEnabled(doc[key] !== false); } };
+    let revision = 0;
+    const refresh = async () => {
+      const request = ++revision;
+      try {
+        const [prefs, doc] = await Promise.all([readPreferences(), browser.storage.local.get(key)]);
+        if (!stopped && request === revision) { setPreferences(prefs); setEnabled(doc[key] !== false); }
+      } catch {
+        if (!stopped && request === revision) setEnabled(false);
+      }
+    };
     void refresh();
     const changed = () => { void refresh(); };
     browser.storage.onChanged.addListener(changed);

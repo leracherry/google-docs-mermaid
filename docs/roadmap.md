@@ -13,8 +13,8 @@ The 0.1.0 alpha is a foundation release. It does not complete the original v1 MV
 | M2 · Block lifecycle | Fixture edits/deletion covered | Validate paste, move, duplicate, undo/redo, reopen, and collaborator updates in live Docs |
 | M3 · Inline UX | Core controls and shared visuals implemented | Persist block choices, improve editing-aware layout, and add expanded drag-to-pan |
 | M4 · Markdown | Fence detection implemented | Validate files opened in Docs, fence-language changes, and editing/paste workflows |
-| M5 · Performance | Queue, cache, debounce, and viewport gating implemented | Benchmark 1/10/50/100 diagrams and reduce bundled renderer cost |
-| M6 · Reliability | Unit and browser fixtures implemented | Extend live-Docs, stale-result, security, and multi-diagram scenarios |
+| M5 · Performance | Queue, cache, debounce, viewport gating and 1/10/50/100-block lifecycle fixtures implemented | Benchmark complex native diagrams and reduce bundled renderer cost |
+| M6 · Reliability | Stale-result, security, settings and multi-diagram fixture regressions covered | Extend authenticated live-Docs and long-session coverage |
 | M7 · Settings | Popup and per-document toggle implemented | Validate settings in real Docs and refine editing preferences if needed |
 | M8 · Release preparation | Logo, docs, screenshots, CI, and GitHub prerelease available | Prepare store assets |
 | M9 · Web Store launch | Pending | Prove compatibility, complete launch review, and configure store publishing |

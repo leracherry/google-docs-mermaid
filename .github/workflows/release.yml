@@ -10,6 +10,7 @@ concurrency:
 jobs:
   package:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -20,10 +21,17 @@ jobs:
       - name: Validate release version
         run: node scripts/check-release.mjs
       - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --audit-level=low
       - run: pnpm check
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-browser-test-results
+          path: test-results/
+          if-no-files-found: ignore
       - run: pnpm zip
       - uses: actions/upload-artifact@v4
         with:

@@ -4,6 +4,13 @@ Changes are listed by release, with unreleased work first.
 
 ## Unreleased
 
+- Fix duplicate SVG IDs across cached previews, stalled rendering status, zoom limits, and modifier-wheel cancellation.
+- Track dynamic code-block attributes, rendered line breaks, and individual block resizes; stop previews until settings load successfully.
+- Grant temporary active-tab access for document settings and handle storage read failures without unhandled rejections.
+- Reject oversized diagrams and external resource syntax before Mermaid renders; protect shared theme configuration.
+- Update KaTeX and Vitest to remove known dependency advisories; enforce dependency audits in CI and release jobs.
+- Expand unit and built-extension regression coverage, including 100-block lifecycle fixtures, clipboard, security, and settings failures; validate prerelease tags strictly.
+
 - Simplify the developer README, add high-resolution screenshots, and adopt the MIT license.
 
 - Restore the centered README identity, locally hosted project badges, and topic tags.

@@ -25,7 +25,7 @@ header select:first-of-type { color: var(--md-sys-color-on-primary-container); b
 .icon { width: 18px; height: 18px; flex: none; stroke-width: var(--gdm-icon-line-width); }
 .icon-button { width: 36px; padding: 0; }
 .canvas { overflow: auto; padding: 16px; max-height: 50vh; min-height: 80px; }
-.canvas svg { width: 100%; height: auto; display: block; }
+.canvas svg { width: 100%; max-width: none !important; height: auto; display: block; }
 .render-status, .source-hint { color: var(--md-sys-color-on-surface-variant); font-size: 12px; }
 .source-hint { display: block; padding: 8px 12px; }
 .error-badge { display: flex; align-items: center; gap: 8px; margin: 8px 12px; padding: 8px 12px; border-radius: var(--gdm-radius-small);
