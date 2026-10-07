@@ -4,6 +4,8 @@ Changes are listed by release, with unreleased work first.
 
 ## Unreleased
 
+- Restore the centered README identity, locally hosted project badges, and topic tags.
+
 - Repair README portability, reorganize documentation, clarify release/main differences, and check local documentation references in CI.
 
 - Unify UI and diagram colors/geometry under one token source; flatten Mermaid nodes, soften rectangular corners, and normalize connectors and outlines.

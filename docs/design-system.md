@@ -73,7 +73,7 @@ These screenshots come from the built extension on synthetic fixtures. They do n
 
 ## Brand assets
 
-The supplied source artwork is [logo.png](assets/logo.png). The README uses [logo-small.png](assets/logo-small.png) so it remains compact without HTML sizing. Chrome variants are in [public/icons](../public/icons) at 16, 32, 48, and 128px.
+The supplied source artwork is [logo.png](assets/logo.png). The centered README header uses the compact [logo-small.png](assets/logo-small.png) derivative. Chrome variants are in [public/icons](../public/icons) at 16, 32, 48, and 128px.
 
 Preserve the blue document, white whale tail, folded corner, proportions, and white background. Reuse the identity and tokens in future options pages and store materials; those products have not been created yet.
 

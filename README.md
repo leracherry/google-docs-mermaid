@@ -1,18 +1,45 @@
-![Mermaid for Google Docs logo](docs/assets/logo-small.png)
+<p align="center">
+  <img src="docs/assets/logo-small.png" width="112" height="112" alt="Mermaid for Google Docs logo" />
+</p>
 
-# Mermaid for Google Docs
+<h1 align="center">Mermaid for Google Docs</h1>
 
-**Diagrams, right where you write.**
+<p align="center"><strong>Diagrams, right where you write.</strong></p>
 
-A Chrome extension for local Mermaid previews in Google Docs. It keeps the source in your document and adds compact preview, zoom, and copy controls.
+<p align="center">
+  Local Mermaid previews, live editing, and compact controls inside Google Docs.<br />
+  Your source stays in the document. Your diagrams stay on your device.
+</p>
 
-[Documentation](docs/README.md) · [Development](docs/development.md) · [Roadmap](docs/roadmap.md) · [Releases](https://github.com/leracherry/google-docs-mermaid/releases) · [CI](https://github.com/leracherry/google-docs-mermaid/actions/workflows/ci.yml)
+<p align="center">
+  <a href="docs/roadmap.md"><img src="docs/assets/badges/status.svg" alt="Status: alpha" /></a>
+  <a href="docs/getting-started.md"><img src="docs/assets/badges/chrome.svg" alt="Chrome: Manifest V3" /></a>
+  <a href="docs/development.md"><img src="docs/assets/badges/typescript.svg" alt="TypeScript: strict" /></a>
+</p>
+
+<p align="center">
+  <a href="docs/privacy.md"><img src="docs/assets/badges/privacy.svg" alt="Rendering: local only" /></a>
+  <a href="https://github.com/leracherry/google-docs-mermaid/actions/workflows/ci.yml"><img src="docs/assets/badges/ci.svg" alt="CI: GitHub Actions" /></a>
+  <a href="#license-and-credits"><img src="docs/assets/badges/license.svg" alt="License: pending" /></a>
+</p>
+
+<p align="center">
+  <a href="docs/README.md">Documentation</a> ·
+  <a href="docs/getting-started.md">Getting started</a> ·
+  <a href="docs/development.md">Development</a> ·
+  <a href="docs/roadmap.md">Roadmap</a> ·
+  <a href="https://github.com/leracherry/google-docs-mermaid/releases">Releases</a>
+</p>
+
+<p align="center"><code>mermaid</code> · <code>google-docs</code> · <code>chrome-extension</code> · <code>typescript</code> · <code>wxt</code> · <code>local-first</code></p>
 
 > **Developer alpha.** The rendering pipeline is tested on DOM-backed code blocks. Native Google Docs canvas extraction and native Markdown-file integration are still pending, so a normal Docs document may show no previews.
 
 ## Preview
 
-![The extension displaying a Mermaid diagram with preview, zoom, expand, and copy controls](docs/assets/diagram-light.png)
+<p align="center">
+  <img src="docs/assets/diagram-light.png" width="600" alt="The extension displaying a Mermaid diagram with preview, zoom, expand, and copy controls" />
+</p>
 
 This screenshot comes from the built extension on a synthetic fixture. See [light/dark settings and diagram examples](docs/design-system.md#visual-examples).
 

@@ -33,10 +33,12 @@ let references = 0;
 for (const file of files) {
   const text = readFileSync(file, 'utf8');
   const content = outsideFences(text);
-  if (/<(?:img|p|h[1-6])\b/i.test(content)) errors.push(`${path.relative(root, file)}: use portable Markdown for layout and images`);
   const links = [];
   marked.walkTokens(marked.lexer(text, { gfm: true }), token => {
     if (token.type === 'link' || token.type === 'image') links.push(token.href);
+    if (token.type === 'html') {
+      for (const match of token.text.matchAll(/\b(?:href|src)=["']([^"']+)["']/g)) links.push(match[1]);
+    }
   });
   for (const href of links) {
     if (/^[a-z][a-z\d+.-]*:/i.test(href) || href.startsWith('//')) continue;
