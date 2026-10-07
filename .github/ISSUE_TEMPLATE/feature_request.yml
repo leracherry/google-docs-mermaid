@@ -1,0 +1,22 @@
+name: Feature proposal
+description: Suggest a focused improvement
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the user workflow and any alternatives
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and privacy
+      description: How does this fit local rendering and the v1 roadmap?

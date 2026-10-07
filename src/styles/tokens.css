@@ -1,0 +1,41 @@
+/* Workspace-inspired palette mapped to Material semantic roles. */
+:root, :host, .light {
+  --md-sys-color-primary: #0b57d0;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #d3e3fd;
+  --md-sys-color-on-primary-container: #041e49;
+  --md-sys-color-surface: #ffffff;
+  --md-sys-color-surface-container: #f0f4f9;
+  --md-sys-color-surface-container-low: #f8fafd;
+  --md-sys-color-on-surface: #1f1f1f;
+  --md-sys-color-on-surface-variant: #444746;
+  --md-sys-color-outline: #747775;
+  --md-sys-color-outline-variant: #c4c7c5;
+  --md-sys-color-error: #b3261e;
+  --md-sys-color-error-container: #f9dedc;
+  --md-sys-color-on-error-container: #410e0b;
+  --gdm-font: 'Google Sans', Roboto, Arial, sans-serif;
+  --gdm-radius-small: 8px;
+  --gdm-radius-medium: 12px;
+  --gdm-radius-large: 16px;
+  --gdm-shadow: 0 1px 3px #00000026, 0 2px 6px #00000014;
+  --gdm-motion: 150ms cubic-bezier(.2, 0, 0, 1);
+  color-scheme: light;
+}
+.dark {
+  --md-sys-color-primary: #a8c7fa;
+  --md-sys-color-on-primary: #062e6f;
+  --md-sys-color-primary-container: #0842a0;
+  --md-sys-color-on-primary-container: #d3e3fd;
+  --md-sys-color-surface: #1f1f1f;
+  --md-sys-color-surface-container: #2d2f31;
+  --md-sys-color-surface-container-low: #282a2c;
+  --md-sys-color-on-surface: #e3e3e3;
+  --md-sys-color-on-surface-variant: #c4c7c5;
+  --md-sys-color-outline: #8e918f;
+  --md-sys-color-outline-variant: #444746;
+  --md-sys-color-error: #f2b8b5;
+  --md-sys-color-error-container: #601410;
+  --md-sys-color-on-error-container: #f9dedc;
+  color-scheme: dark;
+}

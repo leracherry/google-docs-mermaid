@@ -13,3 +13,11 @@
 - [ ] M8/M9: screenshots, icons, Web Store assets, privacy review, store release.
 
 The 0.1.0 alpha is a foundation release. It is not the completed v1 MVP described in the supplied plan.
+
+## Design and repository readiness
+
+- [x] Supplied project logo and Chrome icon variants.
+- [x] Shared light/dark design tokens for popup and inline UI.
+- [x] Branded README, installation guide, design research, community and security guidance.
+- [ ] Select a source-code license and clarify artwork redistribution terms before public open-source launch.
+- [ ] Validate the visual treatment against live Docs after M0 succeeds.

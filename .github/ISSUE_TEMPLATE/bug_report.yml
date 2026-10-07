@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a reproducible problem with the extension
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "This is an early alpha. Native Google Docs canvas extraction is pending. Remove private document content and URLs before submitting. See SECURITY.md for sensitive findings."
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Extension version, Chrome version, and operating system
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Include a small non-sensitive Mermaid example and identify whether this is a fixture or live Docs
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots or logs
+      description: Redact account and document information

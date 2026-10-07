@@ -11,3 +11,9 @@ Global settings and document toggles live in extension local storage. Source tex
 ## Feasibility gate
 
 The initial adapter deliberately does not guess internal canvas selectors or claim to extract native code blocks. The next milestone requires testing with an authenticated live Docs document, identifying available accessibility/semantic source and block geometry, and validating edit/scroll/undo/reload behavior. If complete source cannot be reliably extracted without OAuth or modifying the document, product scope must be revisited before v1 release.
+
+## UI and branding
+
+The popup and isolated overlay share semantic CSS variables from `src/styles/tokens.css`. The popup uses native checkbox-backed switches and selects; inline previews use compact native controls and labeled SVG icons. Expanded view contains focus and restores it on close. Both surfaces support light/dark preferences and reduced motion.
+
+Chrome uses the supplied logo at 16/32/48/128px. The inline header loads only the 32px icon through a narrowly scoped web-accessible resource for Docs URLs. This static packaged asset adds no document-data upload or remote dependency. See [Design system](design-system.md).

@@ -1,1 +1,41 @@
-:host{all:initial;font-family:Arial,sans-serif;font-size:13px;color:#202124}.diagram{position:fixed;pointer-events:auto;background:#fff;border:1px solid #dadce0;border-radius:8px;box-shadow:0 2px 5px #0001;box-sizing:border-box;max-height:70vh;overflow:auto}.diagram.dark{background:#202124;color:#e8eaed;border-color:#5f6368}header,nav{display:flex;align-items:center;gap:5px;padding:6px;flex-wrap:wrap}button,select{font:inherit;color:inherit;background:transparent;border:1px solid #9aa0a6;border-radius:5px;padding:4px;cursor:pointer}button:disabled{opacity:.4}.canvas{overflow:auto;padding:10px;max-height:50vh}.canvas svg{width:100%;height:auto;display:block}small{display:block;padding:6px}pre{white-space:pre-wrap;padding:8px;font-size:12px}.expanded{inset:5vh 5vw;width:90vw;max-height:90vh}.expanded .canvas{max-height:70vh}nav{opacity:.2;transition:opacity .15s}.diagram:hover nav,.diagram:focus-within nav{opacity:1}
+@import './tokens.css';
+:host { all: initial; font-family: var(--gdm-font); font-size: 14px; }
+* { box-sizing: border-box; }
+.diagram {
+  position: fixed; pointer-events: auto; font-family: var(--gdm-font); font-size: 14px; line-height: 1.4;
+  color: var(--md-sys-color-on-surface); background: var(--md-sys-color-surface);
+  border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--gdm-radius-medium);
+  box-shadow: var(--gdm-shadow); max-height: 70vh; overflow: auto;
+}
+header, nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; padding: 8px 12px; }
+header { border-bottom: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface-container-low); }
+.block-logo { width: 24px; height: 24px; border-radius: 4px; }
+.view-select { margin-left: auto; }
+button, select { font: inherit; color: inherit; cursor: pointer; }
+button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 0 12px;
+  border: 0; border-radius: 18px; background: transparent; color: var(--md-sys-color-primary);
+  transition: background var(--gdm-motion); }
+button:hover { background: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent); }
+button:active { background: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent); }
+button:disabled { color: var(--md-sys-color-on-surface); opacity: .38; cursor: default; }
+button:focus-visible, select:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+select { border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--gdm-radius-small); min-height: 32px; padding: 4px 8px;
+  background: var(--md-sys-color-surface); max-width: 100%; }
+header select:first-of-type { color: var(--md-sys-color-on-primary-container); background: var(--md-sys-color-primary-container); border-color: transparent; }
+.icon { width: 18px; height: 18px; flex: none; }
+.icon-button { width: 36px; padding: 0; }
+.canvas { overflow: auto; padding: 16px; max-height: 50vh; min-height: 80px; }
+.canvas svg { width: 100%; height: auto; display: block; }
+.render-status, .source-hint { color: var(--md-sys-color-on-surface-variant); font-size: 12px; }
+.source-hint { display: block; padding: 8px 12px; }
+.error-badge { display: flex; align-items: center; gap: 8px; margin: 8px 12px; padding: 8px 12px; border-radius: var(--gdm-radius-small);
+  background: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container); font-size: 12px; }
+pre { margin: 0; white-space: pre-wrap; padding: 12px 16px; background: var(--md-sys-color-surface-container-low); border-top: 1px solid var(--md-sys-color-outline-variant); font: 12px/1.6 ui-monospace, monospace; }
+nav { border-top: 1px solid var(--md-sys-color-outline-variant); }
+.zoom-label { min-width: 42px; text-align: center; color: var(--md-sys-color-on-surface-variant); font-size: 12px; font-variant-numeric: tabular-nums; }
+.toolbar-spacer { flex: 1; }
+.viewer-backdrop { z-index: 1; position: fixed; inset: 0; pointer-events: auto; background: #0006; }
+.expanded { z-index: 2; inset: 5vh 5vw; width: 90vw; max-height: 90vh; border-radius: var(--gdm-radius-large); box-shadow: 0 8px 32px #0004; }
+.expanded .canvas { max-height: 70vh; }
+@media (pointer: coarse) { button, select { min-height: 48px; } .icon-button { width: 48px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
