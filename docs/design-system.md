@@ -57,19 +57,27 @@ These screenshots come from the built extension on synthetic fixtures. They do n
 
 ### Flowchart
 
-![Flowchart with rounded cards, a semantic diamond, a stadium, and a dashed connector](assets/diagram-shapes.png)
+<p align="center">
+  <img src="assets/diagram-shapes.png" width="650" alt="Flowchart with rounded cards, a semantic diamond, a stadium, and a dashed connector" />
+</p>
 
 ### Sequence diagram
 
-![Sequence diagram with matching actors, lifelines, and note surfaces](assets/sequence-light.png)
+<p align="center">
+  <img src="assets/sequence-light.png" width="650" alt="Sequence diagram with matching actors, lifelines, and note surfaces" />
+</p>
 
 ### Settings in light mode
 
-![Extension settings in light mode](assets/popup-light.png)
+<p align="center">
+  <img src="assets/popup-light.png" width="360" alt="Extension settings in light mode" />
+</p>
 
 ### Settings in dark mode
 
-![Extension settings in dark mode](assets/popup-dark.png)
+<p align="center">
+  <img src="assets/popup-dark.png" width="360" alt="Extension settings in dark mode" />
+</p>
 
 ## Brand assets
 

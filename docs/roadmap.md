@@ -16,7 +16,7 @@ The 0.1.0 alpha is a foundation release. It does not complete the original v1 MV
 | M5 · Performance | Queue, cache, debounce, and viewport gating implemented | Benchmark 1/10/50/100 diagrams and reduce bundled renderer cost |
 | M6 · Reliability | Unit and browser fixtures implemented | Extend live-Docs, stale-result, security, and multi-diagram scenarios |
 | M7 · Settings | Popup and per-document toggle implemented | Validate settings in real Docs and refine editing preferences if needed |
-| M8 · Release preparation | Logo, docs, screenshots, CI, and GitHub prerelease available | Select licensing, clarify artwork terms, and prepare store assets |
+| M8 · Release preparation | Logo, docs, screenshots, CI, and GitHub prerelease available | Prepare store assets |
 | M9 · Web Store launch | Pending | Prove compatibility, complete launch review, and configure store publishing |
 
 ## M0 acceptance criteria
@@ -36,6 +36,7 @@ A native Google Docs code block can be identified, read completely, tracked whil
 ## Before a public launch
 
 - [ ] Complete M0 and live-Docs lifecycle checks.
-- [ ] Select a source-code license and artwork redistribution terms.
+- [x] Adopt the MIT source-code license.
+- [x] Include the supplied project artwork under the project license.
 - [ ] Verify accessibility and visual integration in live Docs.
 - [ ] Prepare store assets and publishing credentials.

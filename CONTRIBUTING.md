@@ -28,4 +28,4 @@ Distinguish fixture coverage from live Google Docs validation. Report precisely 
 
 ## Review and licensing
 
-Maintainers review changes for scope, privacy, usability, and test evidence. Participation follows the [Code of Conduct](CODE_OF_CONDUCT.md). Licensing remains undecided; no CLA or automatic rights-transfer process is in place.
+Maintainers review changes for scope, privacy, usability, and test evidence. Participation follows the [Code of Conduct](CODE_OF_CONDUCT.md). Contributions are made under the project’s [MIT license](LICENSE). No CLA is required.

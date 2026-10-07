@@ -6,7 +6,7 @@ test('built extension renders, preserves valid preview, follows edits and remove
   const profile = await mkdtemp(path.join(os.tmpdir(), 'gdm-e2e-'));
   const extension = path.resolve('.output/chrome-mv3');
   const context = await chromium.launchPersistentContext(profile, {
-    channel: 'chromium', headless: true,
+    channel: 'chromium', headless: true, deviceScaleFactor: process.env.UPDATE_SCREENSHOTS ? 2 : 1,
     args: [`--disable-extensions-except=${extension}`, `--load-extension=${extension}`],
   });
   try {
@@ -76,7 +76,7 @@ test('Workspace diagram styling preserves notation across diagram families', asy
   const profile = await mkdtemp(path.join(os.tmpdir(), 'gdm-style-'));
   const extension = path.resolve('.output/chrome-mv3');
   const context = await chromium.launchPersistentContext(profile, {
-    channel: 'chromium', headless: true,
+    channel: 'chromium', headless: true, deviceScaleFactor: process.env.UPDATE_SCREENSHOTS ? 2 : 1,
     args: [`--disable-extensions-except=${extension}`, `--load-extension=${extension}`],
   });
   try {

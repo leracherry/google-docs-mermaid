@@ -4,6 +4,8 @@ Changes are listed by release, with unreleased work first.
 
 ## Unreleased
 
+- Simplify the developer README, add high-resolution screenshots, and adopt the MIT license.
+
 - Restore the centered README identity, locally hosted project badges, and topic tags.
 
 - Repair README portability, reorganize documentation, clarify release/main differences, and check local documentation references in CI.

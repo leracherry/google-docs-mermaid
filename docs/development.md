@@ -46,7 +46,7 @@ pnpm build
 UPDATE_SCREENSHOTS=1 pnpm test:e2e
 ```
 
-Screenshots are saved to `docs/assets`. Review them before committing; keep the README and [design-system examples](design-system.md#visual-examples) consistent with the implementation. Label fixture screenshots accurately.
+Screenshots are saved to `docs/assets` at 2× resolution. Display them at their logical width (650px for diagram examples, 360px for the popup) to keep the UI crisp without enlarging it. Review them before committing; keep the README and [design-system examples](design-system.md#visual-examples) consistent with the implementation. Label fixture screenshots accurately.
 
 Shared visual tokens live in [design-tokens.ts](../src/styles/design-tokens.ts). The logo source is [logo.png](assets/logo.png), with Chrome variants in [public/icons](../public/icons).
 

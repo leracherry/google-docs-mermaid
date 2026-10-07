@@ -18,4 +18,4 @@ Mermaid for Google Docs is a developer alpha. The renderer and controls are exer
 
 ## Contribute
 
-Read [Contributing](../CONTRIBUTING.md), the [Code of Conduct](../CODE_OF_CONDUCT.md), and the [security policy](../SECURITY.md). Licensing is undecided; see [third-party notices](../THIRD_PARTY_NOTICES.md).
+Read [Contributing](../CONTRIBUTING.md), the [Code of Conduct](../CODE_OF_CONDUCT.md), and the [security policy](../SECURITY.md). The project uses the [MIT license](../LICENSE); see [third-party notices](../THIRD_PARTY_NOTICES.md) for dependencies and artwork notes.
