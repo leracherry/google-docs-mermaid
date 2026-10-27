@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-Use Node.js 22+ and pnpm 10.18.0. The repository is public.
+Use Node.js 22.22.2 from [.node-version](../.node-version) and pnpm 10.18.0. The declared supported ranges are `^22.22.2 || ^24.15.0 || >=26.0.0`, matching the test dependencies. The repository is public.
 
 ## Local setup
 
@@ -55,7 +55,7 @@ Shared visual tokens live in [design-tokens.ts](../src/styles/design-tokens.ts).
 
 ## CI artifacts
 
-The [CI workflow](../.github/workflows/ci.yml) runs on main and pull requests. It installs locked dependencies, audits dependencies, checks docs/types/tests, builds the extension, runs browser scenarios, and uploads the full release asset set as `chrome-extension`. Browser results are uploaded even on failure. Both CI and release packaging enforce a 15-minute timeout.
+The [CI workflow](../.github/workflows/ci.yml) runs on main and pull requests. It installs locked dependencies, audits dependencies, checks docs/types/tests, builds the extension, runs browser scenarios, and uploads the full release asset set as `chrome-extension`. Browser results are uploaded even on failure. CI tests the minimum Node 22 runtime, checks and builds on Node 24.15.0 and Node 26, and downloads the uploaded release artifact to verify its checksums. Both CI and release packaging enforce a 15-minute timeout.
 
 To install an artifact from a successful run, download `chrome-extension`, extract it, and then extract the extension ZIP inside it. Load the resulting folder containing `manifest.json`.
 
@@ -73,8 +73,12 @@ The [release workflow](../.github/workflows/release.yml) validates the tag, audi
 
 See the [Chrome Web Store submission guide](store/README.md). The packaging release is `v0.1.1-rc.1`; native integration remains blocked. Store submission is a separate publisher dashboard action.
 
+## Dependency maintenance
+
+Dependabot Node type updates stay within major 22 so declarations match the oldest supported runtime. The Node 26 typings update is deferred until the Node support policy changes; compiler and test-tool major upgrades are tested together before merging. GitHub Actions use checkout/setup-node/upload-artifact v7, download-artifact v8 and pnpm/action-setup v6.
+
 ## Build constraints
 
-Vite 6 and the compatible React plugin are pinned for the installed Node runtime. Mermaid initializes only when a candidate needs rendering, but WXT currently bundles its bytes into the approximately 5.5MB content script. Bundle performance remains a v1 milestone.
+Vite 6 and the compatible React plugin remain pinned. TypeScript 7.0.2, Vitest 5.0.5, jsdom 30.1.3 and Playwright 1.64.0 are verified together on the minimum Node 22 runtime. Mermaid initializes only when a candidate needs rendering, but WXT currently bundles its bytes into the approximately 5.5MB content script. Bundle performance remains a v1 milestone.
 
-KaTeX is overridden to 0.18.2 to address [GHSA-238p-pmpm-9mq7](https://github.com/KaTeX/KaTeX/security/advisories/GHSA-238p-pmpm-9mq7). Vitest 4.1.12 removes the vulnerable older test dependency chain while retaining Vite 6 compatibility. Run `pnpm audit` when updating dependencies.
+KaTeX is overridden to 0.18.2 to address [GHSA-238p-pmpm-9mq7](https://github.com/KaTeX/KaTeX/security/advisories/GHSA-238p-pmpm-9mq7). Vitest 5 retains Vite 6 compatibility. Run `pnpm audit` when updating dependencies.

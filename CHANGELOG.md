@@ -2,6 +2,13 @@
 
 Changes are listed by release, with unreleased work first.
 
+## Unreleased
+
+- Integrate the Dependabot updates for GitHub Actions, TypeScript 7.0.2, Vitest 5.0.5, jsdom 30.1.3 and Playwright 1.64.0.
+- Declare the actual test-tool Node requirements and pin the minimum development runtime in `.node-version`.
+- Test supported Node 22/24/26 runtimes and verify artifact upload/download checksums in CI.
+- Keep Node type declarations on major 22 to match the oldest supported runtime; defer the Node 26 types update.
+
 ## 0.1.1-rc.1 — 2026-10-27
 
 - Prepare a Chrome Web Store submission kit with listing and privacy answers, permission justifications, reviewer instructions, icons and labeled 1280×800 fixture screenshots.
