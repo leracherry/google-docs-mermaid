@@ -67,7 +67,7 @@ See [Development](docs/development.md) for fixture testing, screenshots, and pac
 
 ## Chrome Web Store preparation
 
-The [submission guide](docs/store/README.md) describes the upload ZIP, submission kit, source archive, manifest and checksums attached to packaging releases. Native Google Docs canvas integration remains a public launch blocker.
+Download the latest [packaging preview v0.1.2-rc.1](https://github.com/leracherry/google-docs-mermaid/releases/tag/v0.1.2-rc.1). The [submission guide](docs/store/README.md) describes the upload ZIP, submission kit, source archive, manifest and checksums attached to packaging releases. Native Google Docs canvas integration remains a public launch blocker.
 
 ## Contribute
 

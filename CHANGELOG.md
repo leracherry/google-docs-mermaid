@@ -2,7 +2,7 @@
 
 Changes are listed by release, with unreleased work first.
 
-## Unreleased
+## 0.1.2-rc.1 — 2026-10-27
 
 - Integrate the Dependabot updates for GitHub Actions, TypeScript 7.0.2, Vitest 5.0.5, jsdom 30.1.3 and Playwright 1.64.0.
 - Declare the actual test-tool Node requirements and pin the minimum development runtime in `.node-version`.
