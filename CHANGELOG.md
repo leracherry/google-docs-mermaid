@@ -2,6 +2,15 @@
 
 Changes are listed by release, with unreleased work first.
 
+## 0.1.1-rc.1 — 2026-10-27
+
+- Prepare a Chrome Web Store submission kit with listing and privacy answers, permission justifications, reviewer instructions, icons and labeled 1280×800 fixture screenshots.
+- Attach the verified upload ZIP, complete submission kit, source ZIP, exact generated manifest and SHA-256 checksums to releases.
+- Include original notices for the production dependency closure in the extension package.
+- Validate MV3 metadata, version, paths, permissions, CSP, icon sizes, runtime resources, notices and ZIP integrity; add negative packaging tests.
+- Update DOMPurify to 3.4.17 and Vitest to 4.1.12 to resolve five current dependency advisories.
+- Clarify native canvas support limitations in extension metadata. Native Docs integration and authenticated manual verification still block public store launch.
+
 ## 0.1.0 — 2026-10-06
 
 - Publish the first regular GitHub release for DOM-backed code blocks.

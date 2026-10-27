@@ -32,11 +32,11 @@ jobs:
           name: release-browser-test-results
           path: test-results/
           if-no-files-found: ignore
-      - run: pnpm zip
+      - run: pnpm release:artifacts
       - uses: actions/upload-artifact@v4
         with:
           name: release-package
-          path: .output/*.zip
+          path: release/*
           if-no-files-found: error
           include-hidden-files: true
   publish:
@@ -63,4 +63,4 @@ jobs:
             args+=(--generate-notes)
           fi
           if [[ "$TAG" == *-* ]]; then args+=(--prerelease); fi
-          gh release create "$TAG" release/*.zip "${args[@]}"
+          gh release create "$TAG" release/* "${args[@]}"

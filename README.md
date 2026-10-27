@@ -63,7 +63,11 @@ pnpm exec playwright install chromium
 pnpm test:e2e
 ```
 
-See [Development](docs/development.md) for fixture testing, screenshots, and packaging. Download [v0.1.0](https://github.com/leracherry/google-docs-mermaid/releases/tag/v0.1.0) for the current release. Repository access is required while the project is private.
+See [Development](docs/development.md) for fixture testing, screenshots, and packaging. Download [v0.1.0](https://github.com/leracherry/google-docs-mermaid/releases/tag/v0.1.0) for the current release. The repository is public.
+
+## Chrome Web Store preparation
+
+The [submission guide](docs/store/README.md) describes the upload ZIP, submission kit, source archive, manifest and checksums attached to packaging releases. Native Google Docs canvas integration remains a public launch blocker.
 
 ## Contribute
 

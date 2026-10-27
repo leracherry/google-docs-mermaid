@@ -3,9 +3,13 @@ import path from 'node:path';
 import { marked } from 'marked';
 
 const root = process.cwd();
+const markdownFiles = dir => readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+  const file = path.join(dir, entry.name);
+  return entry.isDirectory() ? markdownFiles(file) : entry.name.endsWith('.md') ? [file] : [];
+});
 const files = [
   ...readdirSync(root).filter(name => name.endsWith('.md')).map(name => path.join(root, name)),
-  ...readdirSync(path.join(root, 'docs')).filter(name => name.endsWith('.md')).map(name => path.join(root, 'docs', name)),
+  ...markdownFiles(path.join(root, 'docs')),
 ];
 const outsideFences = text => {
   let fence;
