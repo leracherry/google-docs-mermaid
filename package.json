@@ -1,6 +1,6 @@
 {
   "name": "google-docs-mermaid",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Local Mermaid previews for Google Docs",
   "type": "module",
@@ -11,8 +11,9 @@
   },
   "scripts": {
     "dev": "wxt",
-    "build": "wxt build",
-    "zip": "wxt zip",
+    "build": "node scripts/generate-notices.mjs && wxt build",
+    "zip": "node scripts/generate-notices.mjs && wxt zip && node scripts/check-package.mjs",
+    "release:artifacts": "pnpm zip && node scripts/package-release.mjs",
     "typecheck": "wxt prepare && tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
@@ -21,7 +22,7 @@
     "check:docs": "node scripts/check-docs.mjs"
   },
   "dependencies": {
-    "dompurify": "^3.4.16",
+    "dompurify": "^3.4.17",
     "mermaid": "^12.1.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
@@ -36,7 +37,7 @@
     "marked": "^18.1.0",
     "typescript": "^5.9.3",
     "vite": "^6.4.4",
-    "vitest": "^4.1.11",
+    "vitest": "^4.1.12",
     "wxt": "^0.21.4"
   },
   "pnpm": {

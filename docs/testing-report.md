@@ -53,3 +53,11 @@ These numbers exclude browser startup and initial page rendering. They measure s
 The real toolbar `activeTab` grant flow, native document edits, collaborator changes, pagination, editor zoom, reopen/undo behavior and long-session performance still need live-Docs verification. Unit tests cover the popup's document-setting logic; browser fixtures cover storage behavior, document isolation and persistence.
 
 The content script remains approximately 5.5 MB. Block preferences remain session-only; expanded drag-to-pan is not implemented. Image nodes and URL/import-based styling are intentionally unsupported. These constraints are tracked in the roadmap and are not cleared by passing the fixture suite.
+
+## Chrome Web Store packaging audit — October 27, 2026
+
+Version 0.1.1-rc.1 prepares store-format artifacts while preserving the native integration blocker above. A fresh audit found five advisories in the previous lockfile (DOMPurify and Vitest). Updating DOMPurify to 3.4.17 and Vitest to 4.1.12 cleared the current dependency audit.
+
+The package validator checks the actual ZIP, including Manifest V3, numeric version equality, metadata limits, icon PNG dimensions, required files, popup and content resources, local HTML/CSS references, site scope, permissions, CSP, original dependency license notices, unwanted/private paths and ZIP integrity. New regression cases reject incomplete, mismatched, overprivileged and unsafe packages. Web-accessible resources use origin-level `/*` patterns, as Chrome requires; content-script matching remains limited to document URLs.
+
+The browser suite now also captures two 1280×800 built-extension images with a visible DOM-fixture/native-support disclaimer. The submission kit includes the browser report and exact commit/version metadata. These images and fixture tests do not clear live-Docs verification requirements. Full source and store materials are separate release ZIPs, with the exact upload manifest and SHA-256 checksums attached alongside them.
