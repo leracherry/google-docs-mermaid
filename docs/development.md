@@ -71,7 +71,7 @@ To publish a new release:
 
 The [release workflow](../.github/workflows/release.yml) validates the tag, audits dependencies, checks, builds, tests, validates the actual ZIP, and publishes the full asset set using GitHub's built-in token. A suffix creates a prerelease. Artifact uploads must include hidden files because WXT stores ZIPs in `.output`.
 
-See the [Chrome Web Store submission guide](store/README.md). The packaging release is `v0.1.1-rc.1`; native integration remains blocked. Store submission is a separate publisher dashboard action.
+See the [Chrome Web Store submission guide](store/README.md). The packaging release is `v0.1.2-rc.1`; native integration remains blocked. Store submission is a separate publisher dashboard action.
 
 ## Dependency maintenance
 

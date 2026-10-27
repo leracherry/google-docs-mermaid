@@ -1,6 +1,6 @@
 {
   "name": "google-docs-mermaid",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Local Mermaid previews for Google Docs",
   "type": "module",
