@@ -81,4 +81,6 @@ All direct dependencies and pnpm are updated to their latest stable releases. No
 
 The build uses Vite 8.3.5, WXT 0.21.5 and React plugin 6.1.2. TypeScript 7.0.2, Vitest 5.0.5, jsdom 30.1.3 and Playwright 1.64.1 are verified together on the minimum Node 22 runtime. Mermaid initializes only when a candidate needs rendering, but WXT currently bundles its bytes into the approximately 5.4MB content script. Bundle performance remains a v1 milestone.
 
+Rolldown output uses `charset: ascii` because Chrome rejects raw Unicode noncharacters present in some dependency regex strings. The package validator rejects these characters and malformed UTF-8 in generated scripts.
+
 The old React-plugin and KaTeX overrides have been removed. The lockfile resolves React plugin 6.1.2 and the latest KaTeX compatible with Mermaid (0.18.10). Run `pnpm audit` when updating dependencies.

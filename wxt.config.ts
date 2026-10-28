@@ -2,6 +2,9 @@ import { defineConfig } from 'wxt';
 export default defineConfig({
   srcDir: 'src',
   modules: ['@wxt-dev/module-react'],
+  // Chrome rejects raw Unicode noncharacters in extension script files.
+  // Rolldown must escape them in dependency strings, including Mermaid regexes.
+  vite: () => ({ build: { rolldownOptions: { output: { charset: 'ascii' } } } }),
   manifest: {
     name: 'Mermaid for Google Docs',
     description: 'Experimental local Mermaid previews for DOM-backed blocks on Google Docs pages. Native canvas blocks are not supported.',

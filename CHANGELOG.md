@@ -8,6 +8,7 @@ Changes are listed by release, with unreleased work first.
 - Update React and React DOM together to 19.3.1, Mermaid to 12.2.0, Playwright to 1.64.1, marked to 18.1.2, Vite to 8.3.5, WXT to 0.21.5 and Node declarations to 26.6.5.
 - Update pnpm to 12.15.0 and GitHub Actions to current full stable release versions.
 - Remove obsolete React-plugin and KaTeX overrides; resolve current compatible transitive dependencies.
+- Escape script Unicode through Rolldown so Chrome accepts the Vite 8 bundles; reject malformed UTF-8 and raw Unicode noncharacters during ZIP validation.
 - Remove the Dependabot Node-typing exclusion while retaining Node 22/24/26 runtime checks.
 
 ## 0.1.2-rc.1 — 2026-10-27

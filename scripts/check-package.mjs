@@ -42,6 +42,13 @@ export function validatePackage(files, read, version) {
   for (const file of entries) {
     assert.ok(!file.startsWith('/') && !file.split('/').includes('..'), `Unsafe path: ${file}`);
     assert.ok(!/(^|\/)(\.env[^/]*|node_modules|\.git|\.DS_Store)(\/|$)|\.(map|pem|key)$/i.test(file), `Unexpected private/development file: ${file}`);
+    if (file.endsWith('.js')) {
+      const script = new TextDecoder('utf-8', { fatal: true }).decode(read(file));
+      for (const char of script) {
+        const code = char.codePointAt(0);
+        assert.ok(code !== 0 && !(code >= 0xfdd0 && code <= 0xfdef) && (code & 0xffff) < 0xfffe, `Chrome rejects a raw Unicode noncharacter or NUL in ${file}`);
+      }
+    }
     if (/\.(html|css)$/.test(file)) {
       const content = read(file).toString();
       assert.ok(!/<script[^>]+src=["']https?:|@import\s+["']https?:|url\(["']?https?:/i.test(content), `Remote executable/style resource in ${file}`);
@@ -55,7 +62,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const zip = `.output/google-docs-mermaid-${version}-chrome.zip`;
   execFileSync('unzip', ['-tq', zip]);
   const files = execFileSync('unzip', ['-Z1', zip], { encoding: 'utf8' }).trim().split('\n').filter(f => !f.endsWith('/'));
-  const manifest = validatePackage(files, file => execFileSync('unzip', ['-p', zip, file]), version);
+  const manifest = validatePackage(files, file => execFileSync('unzip', ['-p', zip, file], { maxBuffer: 20 * 1024 * 1024 }), version);
   // Validate every local HTML script/style and CSS import/url reference in the archive.
   for (const file of files.filter(f => /\.(html|css)$/.test(f))) {
     const content = execFileSync('unzip', ['-p', zip, file], { encoding: 'utf8' });
