@@ -7,6 +7,11 @@
 <p align="center">Local Mermaid previews. Your source stays in the document.</p>
 
 <p align="center">
+  <strong><a href="https://chromewebstore.google.com/detail/mermaid-for-google-docs/ofhfaoemckclaeeighjodlcgkbngbhnf">Install from the Chrome Web Store</a></strong> ·
+  <a href="https://github.com/leracherry/google-docs-mermaid">Star on GitHub</a>
+</p>
+
+<p align="center">
   <a href="https://github.com/leracherry/google-docs-mermaid/releases/tag/v0.1.0"><img src="docs/assets/badges/status.svg" alt="Release 0.1.0" /></a>
   <a href="docs/getting-started.md"><img src="docs/assets/badges/chrome.svg" alt="Chrome MV3" /></a>
   <a href="https://github.com/leracherry/google-docs-mermaid/actions/workflows/ci.yml"><img src="docs/assets/badges/ci.svg" alt="GitHub Actions" /></a>
@@ -43,6 +48,14 @@
 
 Built with **TypeScript · WXT · React · Mermaid**.
 
+## Install
+
+1. Open [Mermaid for Google Docs in the Chrome Web Store](https://chromewebstore.google.com/detail/mermaid-for-google-docs/ofhfaoemckclaeeighjodlcgkbngbhnf).
+2. Choose **Add to Chrome** and confirm the installation.
+3. Open the extension from Chrome’s toolbar to choose your rendering and appearance preferences.
+
+The current preview supports DOM-backed code blocks. Native Google Docs canvas blocks are not yet supported; see the [roadmap](docs/roadmap.md) for integration progress.
+
 ## Develop
 
 Use Node.js 22.22.2 (see [.node-version](.node-version)) and pnpm 12.15.0. Supported runtimes are Node 22.22.2+, Node 24.15.0+, and Node 26+, within the ranges declared in `package.json`.
@@ -63,13 +76,15 @@ pnpm exec playwright install chromium
 pnpm test:e2e
 ```
 
-See [Development](docs/development.md) for fixture testing, screenshots, and packaging. Download [v0.1.0](https://github.com/leracherry/google-docs-mermaid/releases/tag/v0.1.0) for the current release. The repository is public.
+See [Development](docs/development.md) for fixture testing, screenshots, and packaging. Browse [GitHub releases](https://github.com/leracherry/google-docs-mermaid/releases) for downloadable packages and source archives. The repository is public.
 
-## Chrome Web Store preparation
+## Distribution and packaging
 
-Download the latest [packaging preview v0.1.2-rc.1](https://github.com/leracherry/google-docs-mermaid/releases/tag/v0.1.2-rc.1). The [submission guide](docs/store/README.md) describes the upload ZIP, submission kit, source archive, manifest and checksums attached to packaging releases. Native Google Docs canvas integration remains a public launch blocker.
+Use the [Chrome Web Store listing](https://chromewebstore.google.com/detail/mermaid-for-google-docs/ofhfaoemckclaeeighjodlcgkbngbhnf) to install the extension, or download the [packaging preview v0.1.2-rc.1](https://github.com/leracherry/google-docs-mermaid/releases/tag/v0.1.2-rc.1) from GitHub. The [submission guide](docs/store/README.md) describes the upload ZIP, submission kit, source archive, manifest and checksums attached to packaging releases. Native Google Docs canvas integration remains in development.
 
 ## Contribute
+
+If you find the project useful, consider [giving it a star on GitHub](https://github.com/leracherry/google-docs-mermaid).
 
 Read [Contributing](CONTRIBUTING.md), browse the [roadmap](docs/roadmap.md), or [report a bug](https://github.com/leracherry/google-docs-mermaid/issues/new/choose). See [Security](SECURITY.md) for sensitive reports and [Privacy](docs/privacy.md) for data handling.
 
