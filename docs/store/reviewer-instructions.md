@@ -13,7 +13,7 @@ Do not invent reviewer credentials or claim synthetic fixtures establish native 
 
 ## Reproduce the supported fixture tests
 
-Use the source archive attached to the same release. Install the Node.js version specified by `.node-version` in that source archive and pnpm 10.18.0. From the extracted source root:
+Use the source archive attached to the same release. Install the Node.js version specified by `.node-version` in that source archive and pnpm 12.15.0. From the extracted source root:
 
 ```sh
 pnpm install --frozen-lockfile

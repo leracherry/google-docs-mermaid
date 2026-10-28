@@ -45,7 +45,7 @@ Built with **TypeScript · WXT · React · Mermaid**.
 
 ## Develop
 
-Use Node.js 22.22.2 (see [.node-version](.node-version)) and pnpm 10.18.0. Supported runtimes are Node 22.22.2+, Node 24.15.0+, and Node 26+, within the ranges declared in `package.json`.
+Use Node.js 22.22.2 (see [.node-version](.node-version)) and pnpm 12.15.0. Supported runtimes are Node 22.22.2+, Node 24.15.0+, and Node 26+, within the ranges declared in `package.json`.
 
 ```sh
 git clone git@github.com:leracherry/google-docs-mermaid.git

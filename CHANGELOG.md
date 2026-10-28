@@ -2,6 +2,14 @@
 
 Changes are listed by release, with unreleased work first.
 
+## Unreleased
+
+- Merge all four new Dependabot updates and upgrade every direct dependency to its latest stable version.
+- Update React and React DOM together to 19.3.1, Mermaid to 12.2.0, Playwright to 1.64.1, marked to 18.1.2, Vite to 8.3.5, WXT to 0.21.5 and Node declarations to 26.6.5.
+- Update pnpm to 12.15.0 and GitHub Actions to current full stable release versions.
+- Remove obsolete React-plugin and KaTeX overrides; resolve current compatible transitive dependencies.
+- Remove the Dependabot Node-typing exclusion while retaining Node 22/24/26 runtime checks.
+
 ## 0.1.2-rc.1 — 2026-10-27
 
 - Integrate the Dependabot updates for GitHub Actions, TypeScript 7.0.2, Vitest 5.0.5, jsdom 30.1.3 and Playwright 1.64.0.

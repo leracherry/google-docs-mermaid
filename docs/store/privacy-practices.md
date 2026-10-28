@@ -21,6 +21,9 @@ Select **No, I am not using remote code**. Mermaid, DOMPurify, React, styles and
 
 The extension accesses Mermaid source locally to render it; it retains source and SVG previews in memory. It stores preferences and document IDs locally. It does not collect or transmit user data to the developer or any third party. No analytics, sale, advertising, credit decisions or unrelated uses occur. Copy actions write source/SVG to the clipboard only on request.
 
-For the dashboard's data collection checkboxes, select no data collected/transmitted by this extension. Do not confuse local processing with developer collection. The publisher must personally review and certify the dashboard's limited-use declarations. If behavior changes to send any data, update both these answers and the privacy policy before submission.
+For the dashboard data categories, disclose Website content because Mermaid source is read and rendered locally, and Web history because the active Google Docs URL/document ID is used for per-document settings. This access is limited to Docs document pages; the extension does not read general browsing history or transmit this data to the developer. Google requires disclosure even for local-only processing. Leave unrelated categories unchecked. The publisher must personally review and certify the dashboard's limited-use declarations. If behavior changes to send any data, update both these answers and the privacy policy before submission.
 
 Privacy policy URL: https://github.com/leracherry/google-docs-mermaid/blob/main/docs/privacy.md
+
+
+Reference: [Google User Data FAQ, questions 3 and 4](https://developer.chrome.com/docs/webstore/program-policies/user-data-faq).
