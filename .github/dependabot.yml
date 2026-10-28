@@ -4,10 +4,6 @@ updates:
     directory: /
     schedule:
       interval: weekly
-    # Keep declarations compatible with the oldest supported runtime (Node 22).
-    ignore:
-      - dependency-name: "@types/node"
-        versions: [">=23"]
   - package-ecosystem: github-actions
     directory: /
     schedule:

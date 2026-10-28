@@ -30,6 +30,12 @@ const fixture = () => {
 };
 
 describe('Chrome upload archive validation', () => {
+  it('rejects raw Unicode noncharacters that Chrome reports as invalid script encoding', () => {
+    const f = fixture(); f.files['content.js'] = Buffer.from('const range = "\uffff";'); expect(f.check).toThrow(/Unicode noncharacter/);
+  });
+  it('rejects malformed UTF-8 script bytes', () => {
+    const f = fixture(); f.files['content.js'] = Buffer.from([0xc0, 0xaf]); expect(f.check).toThrow();
+  });
   it('accepts a complete MV3 package', () => expect(fixture().check().version).toBe('0.1.1'));
   it.each(['manifest.json', 'LICENSE', 'THIRD_PARTY_NOTICES.txt', 'dependency-licenses.json', 'content.js', 'popup.html', 'icons/128.png'])('rejects missing %s', file => {
     const f = fixture(); delete f.files[file]; expect(f.check).toThrow();

@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-Use Node.js 22.22.2 from [.node-version](../.node-version) and pnpm 10.18.0. The declared supported ranges are `^22.22.2 || ^24.15.0 || >=26.0.0`, matching the test dependencies. The repository is public.
+Use Node.js 22.22.2 from [.node-version](../.node-version) and pnpm 12.15.0. The declared supported ranges are `^22.22.2 || ^24.15.0 || >=26.0.0`, matching the test dependencies. The repository is public.
 
 ## Local setup
 
@@ -75,10 +75,12 @@ See the [Chrome Web Store submission guide](store/README.md). The packaging rele
 
 ## Dependency maintenance
 
-Dependabot Node type updates stay within major 22 so declarations match the oldest supported runtime. The Node 26 typings update is deferred until the Node support policy changes; compiler and test-tool major upgrades are tested together before merging. GitHub Actions use checkout/setup-node/upload-artifact v7, download-artifact v8 and pnpm/action-setup v6.
+All direct dependencies and pnpm are updated to their latest stable releases. Node declarations use the current major 26 package; Node 22.22.2, Node 24.15.0 and Node 26 runtime compatibility remains enforced by CI. Major updates are tested together before merging. GitHub Actions are pinned to current full release versions and updated by Dependabot.
 
 ## Build constraints
 
-Vite 6 and the compatible React plugin remain pinned. TypeScript 7.0.2, Vitest 5.0.5, jsdom 30.1.3 and Playwright 1.64.0 are verified together on the minimum Node 22 runtime. Mermaid initializes only when a candidate needs rendering, but WXT currently bundles its bytes into the approximately 5.5MB content script. Bundle performance remains a v1 milestone.
+The build uses Vite 8.3.5, WXT 0.21.5 and React plugin 6.1.2. TypeScript 7.0.2, Vitest 5.0.5, jsdom 30.1.3 and Playwright 1.64.1 are verified together on the minimum Node 22 runtime. Mermaid initializes only when a candidate needs rendering, but WXT currently bundles its bytes into the approximately 5.4MB content script. Bundle performance remains a v1 milestone.
 
-KaTeX is overridden to 0.18.2 to address [GHSA-238p-pmpm-9mq7](https://github.com/KaTeX/KaTeX/security/advisories/GHSA-238p-pmpm-9mq7). Vitest 5 retains Vite 6 compatibility. Run `pnpm audit` when updating dependencies.
+Rolldown output uses `charset: ascii` because Chrome rejects raw Unicode noncharacters present in some dependency regex strings. The package validator rejects these characters and malformed UTF-8 in generated scripts.
+
+The old React-plugin and KaTeX overrides have been removed. The lockfile resolves React plugin 6.1.2 and the latest KaTeX compatible with Mermaid (0.18.10). Run `pnpm audit` when updating dependencies.
